@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl:'https://nuevo-gomovie-backend-dev.gestsol.io',
 };

@@ -1,0 +1,295 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<form [formGroup]="itemForm">
+    
+     <div class="row">
+
+       <div class="pr-1 col">
+         <mat-form-field class="full-width" appearance="outline">
+           <mat-label>Titulo de la Pelicula</mat-label>
+           <input
+             matInput
+             name="name"
+             formControlName="name"
+             placeholder="Titulo de la Pelicula"
+             maxlength=20
+           >
+           <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+             Nombre es requerido
+           </mat-error>
+           <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+             El nombre debe tener un mínimo de 3 caracteres
+           </mat-error> -->
+         </mat-form-field>
+       </div>
+
+       <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Año de la Pelicula</mat-label>
+          <input
+            matInput
+            name="year"
+            formControlName="year"
+            placeholder="Año de la Pelicula"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+   
+       <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Descripcion</mat-label>
+          <input
+            matInput
+            name="description"
+            formControlName="description"
+            placeholder="Titulo de la Pelicula"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Director</mat-label>
+          <input
+            matInput
+            name="director"
+            formControlName="director"
+            placeholder="Director"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+ 
+     </div>
+
+     <div class="row">
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Descripcion</mat-label>
+          <input
+            matInput
+            name="description"
+            formControlName="description"
+            placeholder="Titulo de la Pelicula"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Landscape Poster URL</mat-label>
+          <input
+            matInput
+            name="landscape_poster_url"
+            formControlName="landscape_poster_url"
+            placeholder="Landscape Poster URL"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Poster URL</mat-label>
+          <input
+            matInput
+            name="poster_url"
+            formControlName="poster_url"
+            placeholder="Poster URL"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nombre del Archivo video</mat-label>
+          <input
+            matInput
+            name="resource_file_name"
+            formControlName="resource_file_name"
+            placeholder="Nombre del Archivo video"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>URL Pelicula</mat-label>
+          <input
+            matInput
+            name="resource_file_url"
+            formControlName="resource_file_url"
+            placeholder="URL Pelicula"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nombre del Archivo Trailer</mat-label>
+          <input
+            matInput
+            name="resource_trailer_file_name"
+            formControlName="resource_trailer_file_name"
+            placeholder="Nombre del Archivo Trailer"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>URL del Trailer</mat-label>
+          <input
+            matInput
+            name="resource_trailer_file_url"
+            formControlName="resource_trailer_file_url"
+            placeholder="URL del Trailer"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>URL del Thumbnail</mat-label>
+          <input
+            matInput
+            name="thumb"
+            formControlName="thumb"
+            placeholder="URL del Thumbnail"
+          >
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+      
+     </div>
+
+     <div class="row">
+       
+      <div class="pr-1 col">
+        
+        <mat-form-field class="pb-0" class="w-100" appearance="outline" >
+          <mat-label>Generos</mat-label>
+          <mat-select 
+            matInput 
+            name="faena" 
+            formControlName="genders" 
+            [compareWith]="compareObjects" 
+            [value]="itemForm.controls"
+            [disabled]="false"
+          > 
+            <mat-option value="">Genero</mat-option>
+            <mat-option value="">Genero</mat-option>
+            <mat-option value="">Genero</mat-option>
+            <mat-option value="">Genero</mat-option>
+            <mat-option value="">Genero</mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="itemForm.controls['id_faena'].hasError('required')">
+            Proyecto/faena es requerido
+          </mat-error> -->
+        </mat-form-field>
+       </div>
+
+      <div class="pr-1 col-6">
+        <mat-form-field class="w-100" appearance="fill">
+         <mat-label>Artistas</mat-label>
+         <mat-chip-list #chipList aria-label="Seleccion de Autor" formControlName="artists">
+           <mat-chip *ngFor="let artist of artists" [selectable]="selectable"
+                    [removable]="removable" (removed)="remove(artist)">
+             {{artist.name}}
+             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+           </mat-chip>
+           <input placeholder="Nuevo Actor..."
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)">
+         </mat-chip-list>
+       </mat-form-field>
+
+      </div>
+     </div>
+   
+     
+       <!-- <div fxFlex="50"  class="pt-1 pr-1">
+         <mat-slide-toggle [formControl]="itemForm.controls['isActive']">Active Customer</mat-slide-toggle>
+       </div> -->
+   
+         <div fxFlex="100" class="mt-1">
+           <div class="row d-flex justify-content-between">
+             <div class="col-2">
+              <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
+             </div>
+
+             <div class="col-2">
+              <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger">Cancelar </button>
+
+             </div>
+           </div>
+         </div>
+    
+
+     </form>
