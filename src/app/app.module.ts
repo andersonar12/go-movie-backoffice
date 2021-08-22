@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesPopupComponent } from './pages/series/series-popup/series-popup.component';
 import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.component';
@@ -48,7 +49,8 @@ import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.c
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    NgMultiSelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

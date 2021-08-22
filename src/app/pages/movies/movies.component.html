@@ -4,40 +4,51 @@
     </div>
 
     <div class="col-12 pt-3">
-        <div class="mat-elevation-z8">
+        <div class="mat-elevation-z8" *ngIf="dataSource">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
     
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-              
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-              
-                <!-- Name Column -->
+           
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <th mat-header-cell *matHeaderCellDef><strong>Titulo</strong>  </th>
                   <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
               
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="year">
+                  <th mat-header-cell *matHeaderCellDef><strong>Año</strong>   </th>
+                  <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+                </ng-container>
+>
+                <ng-container matColumnDef="director">
+                  <th mat-header-cell *matHeaderCellDef><strong>Director</strong>   </th>
+                  <td mat-cell *matCellDef="let element"> {{element.director}} </td>
                 </ng-container>
               
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+
+                <ng-container matColumnDef="score_average">
+                  <th mat-header-cell *matHeaderCellDef><strong>Calificación</strong>   </th>
+                  <td mat-cell *matCellDef="let element"> {{element.score_average}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef><strong>Acciones</strong>   </th>
+                  <td mat-cell *matCellDef="let element"> 
+
+                    <button mat-mini-fab color="primary" (click)="openPopUp(element)" >
+                      <mat-icon>create</mat-icon>
+                    </button>
+                
+                    <button mat-mini-fab color="warn" (click)="deleteItem(element)" >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+
+                  </td>
                 </ng-container>
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-            <mat-paginator showFirstLastButtons [pageSize]="5" [length]="dataSource.data.length" class="">
+
+            <mat-paginator showFirstLastButtons [pageSize]="10" [length]="dataSource.data.length" class="">
             </mat-paginator>
 
         </div>

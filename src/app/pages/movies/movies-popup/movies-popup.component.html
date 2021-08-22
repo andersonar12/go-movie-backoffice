@@ -4,7 +4,7 @@
     
      <div class="row">
 
-       <div class="pr-1 col">
+       <div class="pr-1 col-3">
          <mat-form-field class="full-width" appearance="outline">
            <mat-label>Titulo de la Pelicula</mat-label>
            <input
@@ -12,7 +12,6 @@
              name="name"
              formControlName="name"
              placeholder="Titulo de la Pelicula"
-             maxlength=20
            >
            <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
              Nombre es requerido
@@ -23,43 +22,25 @@
          </mat-form-field>
        </div>
 
-       <div class="pr-1 col">
+       <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Año de la Pelicula</mat-label>
           <input
             matInput
             name="year"
+            type="number"
             formControlName="year"
-            placeholder="Año de la Pelicula"
+            placeholder="2020"
+            minlength="4"
           >
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Nombre es requerido
+          <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
+            Año es requerido
           </mat-error>
-          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-   
-       <div class="pr-1 col">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Descripcion</mat-label>
-          <input
-            matInput
-            name="description"
-            formControlName="description"
-            placeholder="Titulo de la Pelicula"
-          >
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Nombre es requerido
-          </mat-error>
-          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
+        </mat-form-field> 
+     
       </div>
 
-      <div class="pr-1 col">
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Director</mat-label>
           <input
@@ -76,19 +57,15 @@
           </mat-error> -->
         </mat-form-field>
       </div>
- 
-     </div>
 
-     <div class="row">
-
-      <div class="pr-1 col">
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Descripcion</mat-label>
+          <mat-label>Poster URL</mat-label>
           <input
             matInput
-            name="description"
-            formControlName="description"
-            placeholder="Titulo de la Pelicula"
+            name="poster_url"
+            formControlName="poster_url"
+            placeholder="Poster URL"
           >
           <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
             Nombre es requerido
@@ -98,8 +75,12 @@
           </mat-error> -->
         </mat-form-field>
       </div>
+ 
+     </div>
 
-      <div class="pr-1 col">
+     <div class="row">
+
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Landscape Poster URL</mat-label>
           <input
@@ -117,25 +98,7 @@
         </mat-form-field>
       </div>
 
-      <div class="pr-1 col">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Poster URL</mat-label>
-          <input
-            matInput
-            name="poster_url"
-            formControlName="poster_url"
-            placeholder="Poster URL"
-          >
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Nombre es requerido
-          </mat-error>
-          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-
-      <div class="pr-1 col">
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Nombre del Archivo video</mat-label>
           <input
@@ -153,7 +116,7 @@
         </mat-form-field>
       </div>
 
-      <div class="pr-1 col">
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>URL Pelicula</mat-label>
           <input
@@ -171,7 +134,7 @@
         </mat-form-field>
       </div>
 
-      <div class="pr-1 col">
+      <div class="pr-1 col-3">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Nombre del Archivo Trailer</mat-label>
           <input
@@ -189,6 +152,9 @@
         </mat-form-field>
       </div>
 
+     </div>
+
+     <div class="row">
       <div class="pr-1 col">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>URL del Trailer</mat-label>
@@ -226,37 +192,24 @@
       </div>
       
      </div>
-
      <div class="row">
        
-      <div class="pr-1 col">
-        
-        <mat-form-field class="pb-0" class="w-100" appearance="outline" >
-          <mat-label>Generos</mat-label>
-          <mat-select 
-            matInput 
-            name="faena" 
-            formControlName="genders" 
-            [compareWith]="compareObjects" 
-            [value]="itemForm.controls"
-            [disabled]="false"
-          > 
-            <mat-option value="">Genero</mat-option>
-            <mat-option value="">Genero</mat-option>
-            <mat-option value="">Genero</mat-option>
-            <mat-option value="">Genero</mat-option>
-            <mat-option value="">Genero</mat-option>
-          </mat-select>
-          <!-- <mat-error *ngIf="itemForm.controls['id_faena'].hasError('required')">
-            Proyecto/faena es requerido
-          </mat-error> -->
-        </mat-form-field>
-       </div>
+      <div class="pr-1 col" *ngIf="genders.length > 0">
+      
+        <ng-multiselect-dropdown #multiSelect  [placeholder]="'Selecciona los generos' "[settings]="settings"
+          [data]="genders" formControlName="genders"  (onSelect)="onItemSelect($event)">
+        </ng-multiselect-dropdown>
+      
+        <span *ngIf="itemForm.controls['genders'].errors?.required" style="color: #f44336; padding: 0 1em; font-size: 75%;">
+          Generos son requeridos
+        </span>
+      
+      </div>
 
       <div class="pr-1 col-6">
         <mat-form-field class="w-100" appearance="fill">
          <mat-label>Artistas</mat-label>
-         <mat-chip-list #chipList aria-label="Seleccion de Autor" formControlName="artists">
+         <mat-chip-list #chipList aria-label="Seleccion de Autor" formControlName="artists" >
            <mat-chip *ngFor="let artist of artists" [selectable]="selectable"
                     [removable]="removable" (removed)="remove(artist)">
              {{artist.name}}
@@ -268,15 +221,33 @@
                   [matChipInputAddOnBlur]="addOnBlur"
                   (matChipInputTokenEnd)="add($event)">
          </mat-chip-list>
+
+        <mat-error *ngIf="chipList.errorState">Debe ingresar artistas</mat-error>
        </mat-form-field>
 
       </div>
      </div>
-   
-     
-       <!-- <div fxFlex="50"  class="pt-1 pr-1">
-         <mat-slide-toggle [formControl]="itemForm.controls['isActive']">Active Customer</mat-slide-toggle>
-       </div> -->
+
+     <div class="row">
+       <div class="col-12">
+        <div class="pr-1 col">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea
+              matInput
+              name="description"
+              formControlName="description"
+              placeholder="Descripción de la Pelicula"
+            ></textarea>
+            <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
+              Descripción es requerida
+            </mat-error>
+         
+          </mat-form-field>
+        </div>
+       </div>
+     </div>
+
    
          <div fxFlex="100" class="mt-1">
            <div class="row d-flex justify-content-between">
