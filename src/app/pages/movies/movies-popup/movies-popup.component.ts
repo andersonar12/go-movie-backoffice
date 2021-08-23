@@ -80,7 +80,7 @@ export class MoviesPopupComponent implements OnInit {
       resource_file_url: new FormControl(item.resource_file_url || '', [Validators.required]),
       resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
       resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', [Validators.required]),
-      thumb: new FormControl(item.thumb || '', [Validators.required]),
+      thumb: new FormControl(item.thumb || '', ),
       year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
       genders: new FormControl(  genders ||'', [Validators.required]),
       artists: new FormControl( this.artists, [Validators.required])
