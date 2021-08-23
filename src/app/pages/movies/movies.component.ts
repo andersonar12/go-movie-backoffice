@@ -43,6 +43,7 @@ export class MoviesComponent implements OnInit {
         return confirmationMessage;                            
       }, 3000);
     });
+    
   }
 
   /* ngAfterViewInit() {
