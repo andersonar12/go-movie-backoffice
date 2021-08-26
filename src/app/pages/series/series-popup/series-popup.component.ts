@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy, Inject, ViewChild, ChangeDetectorRef  } from '@angular/core';
+import { FormBuilder, Validators, FormGroup, FormControl,FormArray } from '@angular/forms';
+import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips'
 
 @Component({
   selector: 'app-series-popup',
@@ -6,10 +10,170 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./series-popup.component.scss']
 })
 export class SeriesPopupComponent implements OnInit {
+  public itemForm!: FormGroup;
+  public genders = []
+  public selectable = true;
+  public removable = true;
+  public addOnBlur = true;
+  public settings = {};
+  public isNew = true
+  /* public seasons =[] */
+  
+  @ViewChild('multiSelect') multiSelect:any;
+  @ViewChild('chipList') chipList:any;
 
-  constructor() { }
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+  artists = [
+    {name: 'Inserta un actor'},
+  ];
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  public dialogRef: MatDialogRef<SeriesPopupComponent>,private fb: FormBuilder,) { }
 
   ngOnInit(): void {
+    console.log('ngOnInitPopup', this.data.payload);
+    this.isNew = this.data.new /* Aqui ocultamos o mostramos las opciones para  temporadas y capitulos*/
+    this.genders = this.data.genders
+    /* Settings del Ng-dropdown  */
+    this.settings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'name',
+      enableCheckAll: false,
+      allowSearchFilter: true,
+      limitSelection: -1,
+      clearSearchFilter: true,
+      maxHeight: 100,
+      itemsShowLimit: 5,
+      searchPlaceholderText: 'Buscar Genero',
+      noDataAvailablePlaceholderText: 'Sin resultados',
+      closeDropDownOnSelection: false,
+      showSelectedItemsAtTop: false,
+      defaultOpen: false
+    };
+    /* Settings del Ng-dropdown  */
+
+    this.buildItemForm(this.data.payload)
   }
+
+  buildItemForm(item:any) {
+
+    let genders
+    if (Object.keys(item).length === 0) {
+      this.artists =this.artists 
+    } else {
+      this.artists = item.artists 
+      genders = [...item.genders.map((g: any)=> {
+        
+        return {_id:g['_id'],name:g['name']}
+      })]
+    }
+     
+
+    
+    this.itemForm = new FormGroup({
+      _id:new FormControl( item._id || '' ),
+      name: new FormControl(item.name || '', [Validators.required]) ,
+      description: new FormControl(item.description || '', [Validators.required]),
+      director:  new FormControl (item.director ||'', [Validators.required]),
+      landscape_poster_url: new FormControl(item.landscape_poster_url || ''),
+      poster_url: new FormControl(item.poster_url || '', [Validators.required]),
+      resource_file_name: new FormControl(item.resource_file_name || '', ),
+      resource_file_url: new FormControl(item.resource_file_url || '', ),
+      resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
+      resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', ),
+      thumb: new FormControl(item.thumb || '', ),
+      score_average: new FormControl(item.score_average || '', ),
+      year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
+      genders: new FormControl(  genders ||'', [Validators.required]),
+      artists: new FormControl( this.artists, [Validators.required]),
+      seasons:new FormControl([])
+       /*  [ '', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]]  */
+    })
+
+  }
+
+  addSeason(){
+    this.itemForm?.value.seasons.push({
+      name: "",
+      year: "",
+      season_number: "",
+      chapters: []
+    })
+  }
+
+  addChapter(i_season:any){
+    this.itemForm?.value.seasons[i_season].chapters.push({
+      name: "",
+      year: "",
+      description: "",
+      chapter_number: "",
+      thumb: "",
+      resource_file_url:"",
+    })
+  }
+
+  deleteChapter(i_season:any,i_chapter:any){
+    this.itemForm?.value.seasons[i_season].chapters.splice(i_chapter,1)
+  }
+
+  deleteSeason(index:any){
+    this.itemForm?.value.seasons.splice(index,1)
+  }
+
+  /* createSeason(): FormGroup {
+    return this.fb.group({
+      name: "Temporada 1",
+      year: "2017",
+      chapters: []
+    });
+  } */
+
+  public onItemSelect(item: any) {
+    /* console.log(item); */
+  }
+
+  public onFilterChange(item: any) {
+    console.log(item);
+  }
+  public onDropDownClose(item: any) {
+    console.log(item);
+  }
+
+/* Logica Mat Chips componente Angular Material */
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our item
+    if (value) {
+      this.artists.push({name: value});
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(artist:any) {
+    const index = this.artists.indexOf(artist);
+
+    if (index >= 0) {
+      this.artists.splice(index, 1);
+    }
+  }
+/* Logica Mat Chips componente Angular Material */
+
+  submit() {
+
+    console.log(this.itemForm?.value);
+    if (this.itemForm.value.genders.length > 0){
+
+      this.itemForm.value.genders = this.itemForm.value.genders.map((gender:any)=>{
+        return gender.name
+      })
+    }
+ 
+     this.dialogRef.close(this.itemForm?.value)
+   }
 
 }

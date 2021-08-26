@@ -74,6 +74,7 @@ export class MoviesPopupComponent implements OnInit {
       name: new FormControl(item.name || '', [Validators.required]) ,
       description: new FormControl(item.description || '', [Validators.required]),
       director:  new FormControl (item.director ||'', [Validators.required]),
+      duration: new FormControl(item.duration || '', [Validators.required]),
       landscape_poster_url: new FormControl(item.landscape_poster_url || ''),
       poster_url: new FormControl(item.poster_url || '', [Validators.required]),
       resource_file_name: new FormControl(item.resource_file_name || '', ),
@@ -81,6 +82,7 @@ export class MoviesPopupComponent implements OnInit {
       resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
       resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', [Validators.required]),
       thumb: new FormControl(item.thumb || '', ),
+      score_average: new FormControl(item.score_average || '', ),
       year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
       genders: new FormControl(  genders ||'', [Validators.required]),
       artists: new FormControl( this.artists, [Validators.required])

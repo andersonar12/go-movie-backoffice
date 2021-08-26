@@ -1,0 +1,102 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<form [formGroup]="itemForm">
+
+    <div class="row">
+        <!-- <div class="col">
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Serie</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let serie of series" [value]="serie._id">
+                    {{serie.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+    </div>
+    <div class="row">
+
+    <div class="pr-1 col-4" *ngIf="series.length > 0">
+            <p><strong>Debes seleccionar que Serie añadir la temporada</strong></p>
+            <ng-multiselect-dropdown #multiSelect formControlName="serie_id" [placeholder]="'Selecciona la Serie'"
+                [settings]="settings" [data]="series" (onSelect)="onItemSelect($event)">
+            </ng-multiselect-dropdown>
+        
+     </div>
+
+      <div class="pr-1 col-6">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            name="name"
+            formControlName="name"
+            placeholder="Nombre"
+          >
+          <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+           Nombre
+          </mat-error>
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col-2">
+       <mat-form-field class="w-100" appearance="outline">
+         <mat-label>Año</mat-label>
+         <input
+           matInput
+           name="year"
+           type="number"
+           formControlName="year"
+           placeholder="2020"
+           minlength="4"
+         >
+         <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
+           Año es requerido
+         </mat-error>
+       </mat-form-field> 
+    
+     </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="pr-1 col-4">
+            <input type="hidden" name="season_number" formControlName="season_number" placeholder="Numero de Temporada">
+            <p>Agregaras la temporada: <strong>{{seasonPicked}}</strong></p>
+        </div>
+        <div class="pr-1 col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Descripcion</mat-label>
+                <input matInput name="description" formControlName="description" placeholder="Descripcion">
+                <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
+                    Descripcion
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="pr-1 col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Ranking</mat-label>
+                <input matInput type="number" name="score_average" formControlName="score_average" placeholder="Ranking">
+            </mat-form-field>
+        </div>
+
+    </div>
+
+ 
+</form> 
+
+<div class="row d-flex justify-content-between">
+    <div class="col-2">
+     <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
+    </div>
+
+    <div class="col-2">
+     <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger"> Cancelar </button>
+
+    </div>
+  </div>

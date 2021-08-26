@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   ngOnInit(){
 
     this.authService.signIn({
-      email: 'test@mail.com' ,
+      email: 'operario@mail.com' ,
       password: '12345678'
     }).toPromise().then(({user})=>{
       console.log(user)

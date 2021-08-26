@@ -22,14 +22,18 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesPopupComponent } from './pages/series/series-popup/series-popup.component';
 import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.component';
-
+import {MatExpansionModule} from '@angular/material/expansion';
+import { SeasonsPopupComponent } from './pages/series/seasons-popup/seasons-popup.component';
+import { ChaptersPopupComponent } from './pages/series/chapters-popup/chapters-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
     MoviesComponent,
     SeriesComponent,
     SeriesPopupComponent,
-    MoviesPopupComponent
+    MoviesPopupComponent,
+    SeasonsPopupComponent,
+    ChaptersPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,7 @@ import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.c
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatExpansionModule,
     NgMultiSelectDropDownModule
   ],
   providers: [],
