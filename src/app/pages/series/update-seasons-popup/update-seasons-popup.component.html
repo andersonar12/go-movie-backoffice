@@ -1,0 +1,100 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<div class="row">
+    <div class="pr-1 col-3">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Escoger Temporada  a editar</mat-label><!--  -->
+            <mat-select (selectionChange)="seasonPicked($event.value)" >
+                <mat-option *ngFor="let season of seasons; let i=index" [value]="season._id">
+                   {{season.name}}
+                </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="itemForm.controls['season_id'].hasError('required') || itemForm.controls['chapter_number'].hasError('required')">
+                Debe escoger una Serie y una temporada
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+
+    <div class="col-6 d-flex align-items-center" *ngIf="itemForm">
+        <p class="mb-0"><strong>Eliminar Temporada</strong></p>
+        <button style="margin-left: 15px;" type="button" mat-mini-fab color="warn" aria-label="" (click)="dialogRef.close(itemForm.value)" >
+           <mat-icon>delete</mat-icon>
+       </button>
+    </div>
+</div>
+
+<form [formGroup]="itemForm" *ngIf="itemForm">
+
+    <div class="row">
+
+      <div class="pr-1 col-6">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            name="name"
+            formControlName="name"
+            placeholder="Nombre"
+          >
+          <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+           Nombre
+          </mat-error>
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col-2">
+       <mat-form-field class="w-100" appearance="outline">
+         <mat-label>Año</mat-label>
+         <input
+           matInput
+           name="year"
+           type="number"
+           formControlName="year"
+           placeholder="2020"
+           minlength="4"
+         >
+         <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
+           Año es requerido
+         </mat-error>
+       </mat-form-field> 
+    
+     </div>
+
+     <div class="pr-1 col-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Numero de Temporada</mat-label>
+              <input
+                matInput
+                name="season_number"
+                type="number"
+                formControlName="season_number"
+                placeholder="#"
+              >
+              <mat-error *ngIf="itemForm.controls['season_number'].hasError('required')">
+                Numero de Temporada es requerido.
+              </mat-error>
+            </mat-form-field> 
+         
+          </div>
+
+
+
+    </div>
+
+
+    <div class="row d-flex justify-content-between">
+        <div class="col-2">
+         <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
+        </div>
+    
+        <div class="col-2">
+         <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger"> Cancelar </button>
+    
+        </div>
+      </div>
+ 
+</form> 
+

@@ -149,18 +149,25 @@ export class ResourcesService {
       'Accept': '*/*',
       'Authorization': `Bearer ${token}`})
 
-      delete data.season_id 
+      delete data._id 
       delete data.serie_id //No es necesario enviar un body con esos atributos
-
+      delete data.delete
     const body = {
       season: {
         ...data
       }
     }
 
-    return this.http.post<any>(endpoint,body,{ headers: headers, withCredentials: true })
+    return this.http.patch<any>(endpoint,body,{ headers: headers, withCredentials: true })
   }
 
+  deleteSeason(serie_id:string,season_id:string){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/m_resources_series/${serie_id}/seasons/${season_id}`;
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
+
+    return this.http.delete<any>(endpoint,{ headers: headers, withCredentials: true })
+  }
   /* Seasons */
 
   /* Chapters */
@@ -192,10 +199,10 @@ export class ResourcesService {
       'Accept': '*/*',
       'Authorization': `Bearer ${token}`})
 
-    delete data.chapter_id
+    delete data._id
     delete data.season_id 
     delete data.serie_id  //No es necesario enviar un body con esos atributos
-
+    
     const body = {
       chapter: {
         ...data
@@ -203,6 +210,14 @@ export class ResourcesService {
     }
 
     return this.http.patch<any>(endpoint,body,{ headers: headers, withCredentials: true })
+  }
+
+  deleteChapter(serie_id:string,season_id:string,chapter_id:string){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/m_resources_series/${serie_id}/seasons/${season_id}/chapters/${chapter_id}`;
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
+
+    return this.http.delete<any>(endpoint,{ headers: headers, withCredentials: true })
   }
 
   /* Chapters */

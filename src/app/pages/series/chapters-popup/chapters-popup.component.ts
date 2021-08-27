@@ -52,7 +52,7 @@ export class ChaptersPopupComponent implements OnInit {
       name: new FormControl(  '',[Validators.required] ),
       description: new FormControl('',[Validators.required] ),
       year: new FormControl(  '' ,[Validators.required]),
-      score_average:new FormControl( '' ,[Validators.required]),
+      score_average:new FormControl( '' ),
       thumb:new FormControl( '' ,[Validators.required]),
       resource_file_url: new FormControl( '' ,[Validators.required]),
     })

@@ -1,0 +1,161 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<div class="row">
+  <div class="pr-1 col-3">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Escoger Temporada </mat-label><!--  -->
+      <mat-select (selectionChange)="seasonPicked($event.value)">
+        <mat-option *ngFor="let season of seasons; let i=index" [value]="season._id">
+          {{ season.name }}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+
+  <div class="pr-1 col-3" *ngIf="chapters.length > 0">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Escoger Capitulo a editar: </mat-label><!--  -->
+      <mat-select (selectionChange)="chapterPicked($event.value)">
+        <mat-option *ngFor="let chapter of chapters; let i=index" [value]="chapter._id">
+          Capitulo {{i+1}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+
+  <div class="col-6 d-flex align-items-center" *ngIf="itemForm">
+    <p class="mb-0"><strong>Eliminar Capitulo</strong></p>
+    <button style="margin-left: 15px;" type="button" mat-mini-fab color="warn" aria-label=""
+      (click)="deleteChapter()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>
+
+<form [formGroup]="itemForm" *ngIf="itemForm">
+
+    <div class="row">
+
+      <div class="pr-1 col-5">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            name="name"
+            formControlName="name"
+            placeholder="Nombre"
+          >
+          <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+           Nombre
+          </mat-error>
+          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col-2">
+       <mat-form-field class="w-100" appearance="outline">
+         <mat-label>Año</mat-label>
+         <input
+           matInput
+           name="year"
+           type="number"
+           formControlName="year"
+           placeholder="2020"
+           minlength="4"
+         >
+         <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
+           Año es requerido
+         </mat-error>
+       </mat-form-field> 
+    
+     </div>
+
+     <div class="pr-1 col-2">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Numero de Capitulo</mat-label>
+              <input
+                matInput
+                name="chapter_number"
+                type="number"
+                formControlName="chapter_number"
+                placeholder="#"
+              >
+              <mat-error *ngIf="itemForm.controls['chapter_number'].hasError('required')">
+                Numero de Capitulo es requerido.
+              </mat-error>
+            </mat-form-field> 
+         
+      </div>
+
+      <div class="pr-1 col-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Ranking</mat-label>
+          <input matInput name="chapter_number" type="number" formControlName="chapter_number" placeholder="#">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+    
+      
+      <div class="pr-1 col-5">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>URL imagen (Miniatura)</mat-label>
+          <input
+            matInput
+            name="thumb"
+            formControlName="thumb"
+            placeholder="URL imagen (Miniatura)"
+          >
+          <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
+            URL imagen (Miniatura) requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col-7">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>URL Video Capitulo </mat-label>
+          <input
+            matInput
+            name="resource_file_url"
+            formControlName="resource_file_url"
+            placeholder="URL Video Capitulo"
+          >
+          <mat-error *ngIf="itemForm.controls['resource_file_url'].hasError('required')">
+            URL Video Capitulo es requerido
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div class="pr-1 col-12">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput name="description" formControlName="description" placeholder="Descripcion"></textarea>
+          <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
+            Descripcion es requerida
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      
+    </div>
+
+    <div class="row d-flex justify-content-between">
+        <div class="col-2">
+         <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
+        </div>
+    
+        <div class="col-2">
+         <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger"> Cancelar </button>
+    
+        </div>
+      </div>
+ 
+</form> 
+

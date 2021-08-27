@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatTabsModule} from '@angular/material/tabs';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesPopupComponent } from './pages/series/series-popup/series-popup.component';
@@ -25,6 +26,9 @@ import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.c
 import {MatExpansionModule} from '@angular/material/expansion';
 import { SeasonsPopupComponent } from './pages/series/seasons-popup/seasons-popup.component';
 import { ChaptersPopupComponent } from './pages/series/chapters-popup/chapters-popup.component';
+import { UpdateSeasonsPopupComponent } from './pages/series/update-seasons-popup/update-seasons-popup.component';
+import { UpdateChaptersPopupComponent } from './pages/series/update-chapters-popup/update-chapters-popup.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +37,9 @@ import { ChaptersPopupComponent } from './pages/series/chapters-popup/chapters-p
     SeriesPopupComponent,
     MoviesPopupComponent,
     SeasonsPopupComponent,
-    ChaptersPopupComponent
+    ChaptersPopupComponent,
+    UpdateSeasonsPopupComponent,
+    UpdateChaptersPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,7 @@ import { ChaptersPopupComponent } from './pages/series/chapters-popup/chapters-p
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
+    MatTabsModule,
     NgMultiSelectDropDownModule
   ],
   providers: [],

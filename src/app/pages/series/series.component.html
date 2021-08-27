@@ -45,15 +45,15 @@
                       <mat-icon>create</mat-icon>
                     </button>
 
-                    <button mat-mini-fab style="margin-right: 10px;background-color: #ffffff;"  matTooltip="Temporadas">
+                    <button mat-mini-fab style="margin-right: 10px;background-color: #ffffff;" (click)="openPopUpUpdateSeasons(element)"  matTooltip="Temporadas">
                       <mat-icon>video_library</mat-icon>
                     </button>
                     
-                    <button mat-mini-fab style="margin-right: 10px;background-color: #ffffff;" matTooltip="Capitulos">
+                    <button mat-mini-fab style="margin-right: 10px;background-color: #ffffff;" matTooltip="Capitulos" (click)="openPopUpUpdateChapters(element)">
                       <mat-icon>subscriptions</mat-icon>
                     </button>    
                 
-                    <button mat-mini-fab color="warn" (click)="deleteItem(element)" matTooltip="Eliminar serie completa" >
+                    <button mat-mini-fab color="warn" (click)="deleteItem(element)" matTooltip="Eliminar serie completa">
                       <mat-icon>delete</mat-icon>
                     </button>
 

@@ -341,19 +341,32 @@
                         <input matInput type="number" placeholder="#" [(ngModel)]="this.itemForm?.value.seasons[i].chapters[subI].chapter_number" >
                       </mat-form-field>
                  </div> 
-                <div class="col-5">
+                <div class="col-4">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Nombre del Capitulo</mat-label>
                         <input matInput placeholder="Nombre del capitulo" [(ngModel)]="this.itemForm?.value.seasons[i].chapters[subI].name">
                       </mat-form-field>
                  </div>
         
-                 <div class="col-2">
+                 <div class="col-1">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Año:</mat-label>
                         <input matInput type="number" placeholder="2020" [(ngModel)]="this.itemForm?.value.seasons[i].chapters[subI].year" >
                       </mat-form-field>
                  </div> 
+
+                 <div class="pr-1 col-3">
+                  <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>URL Miniatura </mat-label>
+                    <input
+                      matInput
+                      name="thumb"
+                      formControlName="thumb"
+                      placeholder="URL Miniatura"
+                    >
+      
+                  </mat-form-field>
+                </div>
                  
                  <div class="col">
                     <button type="button" mat-raised-button (click)="deleteChapter(i,subI)" >
@@ -369,7 +382,7 @@
                  <div class="col-8">
                   <mat-form-field class="w-100" appearance="fill">
                       <mat-label>Descripción del Capitulo</mat-label>
-                      <textarea matInput placeholder="Descripcion del capitulo" [(ngModel)]="this.itemForm?.value.seasons[i].chapters[subI].description"></textarea>
+                      <textarea matInput placeholder="Descripción del capitulo" [(ngModel)]="this.itemForm?.value.seasons[i].chapters[subI].description"></textarea>
                     </mat-form-field>
                </div>
                <hr style="height: 3px;">

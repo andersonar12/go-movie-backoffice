@@ -3,19 +3,6 @@
 <form [formGroup]="itemForm">
 
     <div class="row">
-        <!-- <div class="col">
-            
-            <mat-form-field appearance="fill">
-                <mat-label>Serie</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let serie of series" [value]="serie._id">
-                    {{serie.name}}
-                  </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div> -->
-    </div>
-    <div class="row">
 
     <div class="pr-1 col-4" *ngIf="series.length > 0">
             <p><strong>Debes seleccionar que Serie añadir la temporada</strong></p>

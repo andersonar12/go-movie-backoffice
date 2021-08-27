@@ -12,6 +12,9 @@ import Swal from 'sweetalert2'
 import { SeriesPopupComponent } from './series-popup/series-popup.component';
 import { SeasonsPopupComponent } from './seasons-popup/seasons-popup.component';
 import { ChaptersPopupComponent } from './chapters-popup/chapters-popup.component';
+import { UpdateSeasonsPopupComponent } from './update-seasons-popup/update-seasons-popup.component';
+import { UpdateChaptersPopupComponent } from './update-chapters-popup/update-chapters-popup.component';
+
 
 
 @Component({
@@ -24,6 +27,7 @@ export class SeriesComponent implements OnInit {
   public getAllDataSub?: Subscription
   public genders: Array<Gender> = []
   public series: Array<ResourceMovieM> = []
+
 
   public displayedColumns: string[] = ['name', 'year', 'director', 'score_average', 'seasons','acciones'];
   public dataSource!: MatTableDataSource<any>
@@ -205,6 +209,88 @@ export class SeriesComponent implements OnInit {
       }
       )
   }
+
+  openPopUpUpdateSeasons(data: any = {},isNew?:any) {
+    let title = 'Actualizar Temporada';
+    let dialogRef: MatDialogRef<any> = this.dialog.open(UpdateSeasonsPopupComponent, {
+      width: '950px',
+      /* disableClose: true, */
+      data: { title: title, payload: data}
+    })
+    dialogRef.afterClosed()
+      .subscribe((res) => {
+ 
+        if(!res) {
+          // If user press cancel
+          return;
+        }
+        this.presentLoader()
+
+        if (res.hasOwnProperty('delete')) {
+          this.resourcesService.deleteSeason(res.serie_id,res._id).toPromise().then((res)=>{
+          
+            this.getAllData() 
+            Swal.fire('Realizado','Temporada eliminada','success')
+          })
+          return
+        }
+   
+        if (isNew) {
+        } else {
+          console.log(res);
+          this.resourcesService.updateSeason(res,res.serie_id,res._id).toPromise().then((res)=>{
+            /* console.log(res) */
+            this.getAllData() 
+            Swal.fire('Realizado','Temporada actualizada','success')
+          })
+
+        }
+         
+      }
+      )
+  }
+
+  openPopUpUpdateChapters(data: any = {},isNew?:any) {
+    let title = 'Actualizar Capitulos';
+    let dialogRef: MatDialogRef<any> = this.dialog.open(UpdateChaptersPopupComponent, {
+      width: '950px',
+      /* disableClose: true, */
+      data: { title: title, payload: data}
+    })
+    dialogRef.afterClosed()
+      .subscribe((res) => {
+ 
+        if(!res) {
+          // If user press cancel
+          return;
+        }
+        this.presentLoader()
+
+        if (res.hasOwnProperty('delete')) {
+        
+          this.resourcesService.deleteChapter(res.serie_id,res.season_id,res._id).toPromise().then((res)=>{
+          
+            this.getAllData() 
+            Swal.fire('Realizado','Capitulo eliminado','success')
+          })
+          return
+        }
+   
+        if (isNew) {
+        } else {
+          console.log(res);
+          this.resourcesService.updateChapter(res,res.serie_id,res.season_id,res._id).toPromise().then((res)=>{
+            /* console.log(res) */
+            this.getAllData() 
+            Swal.fire('Realizado','Capitulo actualizado','success')
+          })
+
+        }
+         
+      }
+      )
+  }
+  
 
   deleteItem(item:any) {
     console.log(item);
