@@ -19,15 +19,18 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesPopupComponent } from './pages/series/series-popup/series-popup.component';
 import { MoviesPopupComponent } from './pages/movies/movies-popup/movies-popup.component';
-import {MatExpansionModule} from '@angular/material/expansion';
 import { SeasonsPopupComponent } from './pages/series/seasons-popup/seasons-popup.component';
 import { ChaptersPopupComponent } from './pages/series/chapters-popup/chapters-popup.component';
 import { UpdateSeasonsPopupComponent } from './pages/series/update-seasons-popup/update-seasons-popup.component';
 import { UpdateChaptersPopupComponent } from './pages/series/update-chapters-popup/update-chapters-popup.component';
+import { SliderMoviesComponent } from './pages/slider-movies/slider-movies.component';
+import { SliderSeriesComponent } from './pages/slider-series/slider-series.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { UpdateChaptersPopupComponent } from './pages/series/update-chapters-pop
     SeasonsPopupComponent,
     ChaptersPopupComponent,
     UpdateSeasonsPopupComponent,
-    UpdateChaptersPopupComponent
+    UpdateChaptersPopupComponent,
+    SliderMoviesComponent,
+    SliderSeriesComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,8 @@ import { UpdateChaptersPopupComponent } from './pages/series/update-chapters-pop
     MatSortModule,
     MatExpansionModule,
     MatTabsModule,
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,7 +10,6 @@ export class ResourcesService {
   public apiUrl = environment.apiUrl + '/api'
 
   constructor(private http: HttpClient) { 
-
   }
 
   getMongoMovieResources(){
@@ -228,4 +227,58 @@ export class ResourcesService {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
     return this.http.get<Gender[]>(endpoint, { headers: headers, withCredentials: true })
   }
+
+
+  /* SLider Movies */
+  getAllSlidersMovies(){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/movies_sliders`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    return this.http.get<any>(endpoint, { headers: headers, withCredentials: true })
+  }
+
+  updateMovieSliders(data:any){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/movies_sliders`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      'Authorization': `Bearer ${token}`})
+
+    const body = {
+      movies_sliders: [
+        ...data
+      ]
+    }
+
+    return this.http.post<any>(endpoint,body,{ headers: headers, withCredentials: true })
+  }
+  /* Slider Movies */
+
+  /* SLider Series */
+  getAllSlidersSeries(){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/series_sliders`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    return this.http.get<any>(endpoint, { headers: headers, withCredentials: true })
+  }
+
+  updateSerieSliders(data:any){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/series_sliders`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      'Authorization': `Bearer ${token}`})
+
+    const body = {
+      series_sliders: [
+        ...data
+      ]
+    }
+
+    return this.http.post<any>(endpoint,body,{ headers: headers, withCredentials: true })
+  }
+  /* Slider Series */
+
 }
