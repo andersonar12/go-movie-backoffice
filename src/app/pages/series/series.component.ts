@@ -25,6 +25,7 @@ import { UpdateChaptersPopupComponent } from './update-chapters-popup/update-cha
 export class SeriesComponent implements OnInit {
 
   public getAllDataSub?: Subscription
+  public dataJson = {}
   public genders: Array<Gender> = []
   public series: Array<ResourceMovieM> = []
 
@@ -66,6 +67,7 @@ export class SeriesComponent implements OnInit {
 
         this.genders = genders
         this.series = resources
+        this.dataJson = resources
 
         this.dataSource = new MatTableDataSource(this.series);
 
@@ -327,6 +329,18 @@ export class SeriesComponent implements OnInit {
         Swal.showLoading()
       },
     })
+  }
+
+  exportJSON(){
+    let dataStr = JSON.stringify(this.dataJson, null, "\t");
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'all_series.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
   }
 
 

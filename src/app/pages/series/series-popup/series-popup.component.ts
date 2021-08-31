@@ -10,6 +10,7 @@ import {MatChipInputEvent} from '@angular/material/chips'
   styleUrls: ['./series-popup.component.scss']
 })
 export class SeriesPopupComponent implements OnInit {
+  public dataJson = {}
   public itemForm!: FormGroup;
   public genders = []
   public selectable = true;
@@ -35,6 +36,8 @@ export class SeriesPopupComponent implements OnInit {
     console.log('ngOnInitPopup', this.data.payload);
     this.isNew = this.data.new /* Aqui ocultamos o mostramos las opciones para  temporadas y capitulos*/
     this.genders = this.data.genders
+    this.dataJson = this.data.payload
+
     /* Settings del Ng-dropdown  */
     this.settings = {
       singleSelection: false,
@@ -175,5 +178,17 @@ export class SeriesPopupComponent implements OnInit {
  
      this.dialogRef.close(this.itemForm?.value)
    }
+
+   exportJSON(){
+    let dataStr = JSON.stringify(this.dataJson, null, "\t");
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'serie.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  }
 
 }

@@ -287,6 +287,11 @@
               <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
              </div>
 
+             <div class="col-2" *ngIf="this.data.payload.hasOwnProperty('_id')">
+              <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" aria-label="Example home icon">data_object</mat-icon> Exportar JSON </button>
+             </div>
+
+
              <div class="col-2">
               <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger">Cancelar </button>
 

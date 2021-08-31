@@ -1,6 +1,7 @@
 <div class="row pt-2 ">
-    <div class="col-12">
-        <button type="button" class="btn btn-dark" (click)="openPopUp({}, true)">Agregar Pelicula</button>
+    <div class="col-12 d-flex align-items-center">
+        <button type="button" class="btn btn-dark me-3" (click)="openPopUp({}, true)">Agregar Pelicula</button>
+        <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
     </div>
 
     <div class="col-12 pt-3">

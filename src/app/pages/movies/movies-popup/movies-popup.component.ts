@@ -10,6 +10,9 @@ import {MatChipInputEvent} from '@angular/material/chips'
   styleUrls: ['./movies-popup.component.scss']
 })
 export class MoviesPopupComponent implements OnInit {
+
+  public dataJson = {}
+
   public itemForm!: FormGroup;
   public genders = []
   public selectable = true;
@@ -31,6 +34,7 @@ export class MoviesPopupComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInitPopup', this.data.payload);
+    this.dataJson = this.data.payload
     this.genders = this.data.genders
     /* Settings del Ng-dropdown  */
     this.settings = {
@@ -120,6 +124,18 @@ export class MoviesPopupComponent implements OnInit {
     if (index >= 0) {
       this.artists.splice(index, 1);
     }
+  }
+
+  exportJSON(){
+    let dataStr = JSON.stringify(this.dataJson, null, "\t");
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'movie.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
   }
 
   submit() {

@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 })
 export class MoviesComponent implements OnInit {
   public getAllDataSub?: Subscription
+  public dataJson = {}
   public genders: Array<Gender> = []
   public movies: Array<ResourceMovieM> = []
 
@@ -53,10 +54,11 @@ export class MoviesComponent implements OnInit {
 
   getAllData() {
     this.getAllDataSub = forkJoin([this.resourcesService.getMongoGenders(),this.resourcesService.getMongoMovieResources()])
-      .subscribe((([genders, resources ,]) => {
+      .subscribe((([genders, resources ]) => {
 
         this.genders = genders
         this.movies = resources
+        this.dataJson = resources
 
         this.dataSource = new MatTableDataSource(this.movies);
 
@@ -170,6 +172,18 @@ export class MoviesComponent implements OnInit {
         Swal.showLoading()
       },
     })
+  }
+
+  exportJSON(){
+    let dataStr = JSON.stringify(this.dataJson, null, "\t");
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = 'all_movies.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
   }
 
 }

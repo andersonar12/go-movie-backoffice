@@ -1,8 +1,9 @@
 <div class="row pt-2 ">
-    <div class="col-12">
+    <div class="col-12 d-flex align-items-center">
         <button type="button" class="btn btn-dark me-3" (click)="openPopUpSerie({}, true)">Agregar una Serie completa</button>
         <button type="button" class="btn btn-primary me-3" (click)="openPopUpSeasons(false)">Agregar una Temporada</button>
         <button type="button" class="btn btn-primary me-3" (click)="openPopUpChapters(false)">Agregar un capitulo</button>
+        <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
     </div>
 
     <div class="col-12 pt-3">
