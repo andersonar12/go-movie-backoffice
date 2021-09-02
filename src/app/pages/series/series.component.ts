@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin, Subscription, zip } from 'rxjs';
+import { forkJoin, Subject, Subscription, zip } from 'rxjs';
 import { Gender, ResourceMovieM } from 'src/app/interfaces/interfaces';
 import { ResourcesService } from 'src/app/services/resources.service';
 
@@ -14,6 +14,7 @@ import { SeasonsPopupComponent } from './seasons-popup/seasons-popup.component';
 import { ChaptersPopupComponent } from './chapters-popup/chapters-popup.component';
 import { UpdateSeasonsPopupComponent } from './update-seasons-popup/update-seasons-popup.component';
 import { UpdateChaptersPopupComponent } from './update-chapters-popup/update-chapters-popup.component';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 
@@ -23,12 +24,12 @@ import { UpdateChaptersPopupComponent } from './update-chapters-popup/update-cha
   styleUrls: ['./series.component.scss']
 })
 export class SeriesComponent implements OnInit {
-
+  public inputSearch$ = new Subject<any>();
   public getAllDataSub?: Subscription
   public dataJson = {}
   public genders: Array<Gender> = []
   public series: Array<ResourceMovieM> = []
-
+  public subSeries:Array<ResourceMovieM> = []
 
   public displayedColumns: string[] = ['name', 'year', 'director', 'score_average', 'seasons','acciones'];
   public dataSource!: MatTableDataSource<any>
@@ -70,7 +71,7 @@ export class SeriesComponent implements OnInit {
         this.dataJson = resources
 
         this.dataSource = new MatTableDataSource(this.series);
-
+        this.subSeries = this.series
         if (this.dataSource) {
           setTimeout(() => {
             this.dataSource.paginator = this.paginator;
@@ -80,7 +81,7 @@ export class SeriesComponent implements OnInit {
         }
         console.log('Genders',genders,'Series',resources);
         /* this.dataSource = new MatTableDataSource(users); */
-
+        this.inputSearch()
       }),
         error => {
           console.log(error)
@@ -341,6 +342,32 @@ export class SeriesComponent implements OnInit {
     linkElement.setAttribute('href', dataUri);
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
+  }
+
+  inputSearch(){
+   
+   this.inputSearch$.pipe(
+      debounceTime(1000), // discard emitted values that take less than the specified time between output
+      distinctUntilChanged() // only emit when value has changed
+    ).subscribe(input => {
+      this.presentLoader()
+
+      if(input.target.value == '') {
+        this.dataSource.data = this.subSeries;
+        Swal.close()
+        this.cd.markForCheck()
+        return
+      }
+      this.resourcesService.searchSerieResources(input.target.value)
+      .toPromise().then((res)=>{
+
+        this.dataSource.data = res
+        console.log(res);
+        Swal.close()
+        this.cd.markForCheck()
+      })
+      /* console.log(input.target.value); */
+    });
   }
 
 

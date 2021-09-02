@@ -19,6 +19,26 @@ export class ResourcesService {
     return this.http.get<ResourceMovieM[]>(endpoint, { headers: headers, withCredentials: true })
   }
 
+  /* Buscador  */
+
+  searchMovieResources(value:string){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/m_resources_movies`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    const params = new HttpParams().set('search', value)/* .set('fields', 'name,year,artists,poster_url') */
+    return this.http.get<ResourceMovieM[]>(endpoint, { headers: headers, withCredentials: true,params })
+  }
+
+  searchSerieResources(value:string){
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${ this.apiUrl }/m_resources_series`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    const params = new HttpParams().set('search', value)/* .set('fields', 'name,year,artists,poster_url') */
+    return this.http.get<ResourceMovieM[]>(endpoint, { headers: headers, withCredentials: true,params })
+  }
+
+  /* Buscador */
+
   addMovie(data:Object){
 
     const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
@@ -280,5 +300,7 @@ export class ResourcesService {
     return this.http.post<any>(endpoint,body,{ headers: headers, withCredentials: true })
   }
   /* Slider Series */
+
+
 
 }

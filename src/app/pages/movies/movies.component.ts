@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin, Subscription, zip } from 'rxjs';
+import { forkJoin, Subject, Subscription, zip } from 'rxjs';
 import { Gender, ResourceMovieM } from 'src/app/interfaces/interfaces';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { MoviesPopupComponent } from './movies-popup/movies-popup.component';
@@ -9,6 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'sweetalert2'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies',
@@ -16,10 +17,12 @@ import Swal from 'sweetalert2'
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
+  public inputSearch$ = new Subject<any>();
   public getAllDataSub?: Subscription
   public dataJson = {}
   public genders: Array<Gender> = []
   public movies: Array<ResourceMovieM> = []
+  public subMovies:Array<ResourceMovieM> = []
 
   public displayedColumns: string[] = ['name', 'year', 'director', 'score_average', 'acciones'];
   public dataSource!: MatTableDataSource<any>
@@ -61,6 +64,7 @@ export class MoviesComponent implements OnInit {
         this.dataJson = resources
 
         this.dataSource = new MatTableDataSource(this.movies);
+        this.subMovies = this.movies
 
         if (this.dataSource) {
           setTimeout(() => {
@@ -70,6 +74,7 @@ export class MoviesComponent implements OnInit {
           }, 0);
         }
         console.log('Genders',genders,'Movies',resources);
+        this.inputSearch()
         /* this.dataSource = new MatTableDataSource(users); */
 
       }),
@@ -184,6 +189,32 @@ export class MoviesComponent implements OnInit {
     linkElement.setAttribute('href', dataUri);
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
+  }
+
+  inputSearch(){
+   
+   this.inputSearch$.pipe(
+      debounceTime(1000), // discard emitted values that take less than the specified time between output
+      distinctUntilChanged() // only emit when value has changed
+    ).subscribe(input => {
+      this.presentLoader()
+
+      if(input.target.value == '') {
+        this.dataSource.data = this.subMovies;
+        Swal.close()
+        this.cd.markForCheck()
+        return
+      }
+      this.resourcesService.searchMovieResources(input.target.value)
+      .toPromise().then((res)=>{
+
+        this.dataSource.data = res
+        console.log(res);
+        Swal.close()
+        this.cd.markForCheck()
+      })
+      /* console.log(input.target.value); */
+    });
   }
 
 }

@@ -3,7 +3,12 @@
         <button type="button" class="btn btn-dark me-3" (click)="openPopUpSerie({}, true)">Agregar una Serie completa</button>
         <button type="button" class="btn btn-primary me-3" (click)="openPopUpSeasons(false)">Agregar una Temporada</button>
         <button type="button" class="btn btn-primary me-3" (click)="openPopUpChapters(false)">Agregar un capitulo</button>
-        <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
+        <button class="btn btn-success d-flex align-items-center me-3" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
+        <mat-form-field appearance="outline" style="width: 300px;">
+          <mat-label class="" >Buscar Serie por Nombre/Actor</mat-label>
+          <input  matInput class="" [type]="'text'" (input)="inputSearch$.next($event)" placeholder="" >
+          <mat-icon class="" matSuffix matTooltip="Buscar Serie por Nombre/Actor" >search</mat-icon>
+        </mat-form-field>
     </div>
 
     <div class="col-12 pt-3">

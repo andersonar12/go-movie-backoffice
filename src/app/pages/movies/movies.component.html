@@ -1,7 +1,12 @@
 <div class="row pt-2 ">
     <div class="col-12 d-flex align-items-center">
         <button type="button" class="btn btn-dark me-3" (click)="openPopUp({}, true)">Agregar Pelicula</button>
-        <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
+        <button class="btn btn-success d-flex align-items-center me-3" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" >data_object</mat-icon> Exportar JSON </button>
+        <mat-form-field appearance="outline" style="width: 400px;">
+          <mat-label class="" >Buscar Pelicula por Nombre/Actor</mat-label>
+          <input  matInput class="" [type]="'text'" (input)="inputSearch$.next($event)" placeholder="" >
+          <mat-icon class="" matSuffix matTooltip="Buscar Pelicula por Nombre/Actor" >search</mat-icon>
+        </mat-form-field>
     </div>
 
     <div class="col-12 pt-3">
