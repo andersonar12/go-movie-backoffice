@@ -4,6 +4,15 @@ import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog'
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips'
 
+
+interface Preview {
+  [key: string] : any;
+}
+
+interface DataImages {
+  [key: string] : any;
+}
+
 @Component({
   selector: 'app-movies-popup',
   templateUrl: './movies-popup.component.html',
@@ -19,7 +28,22 @@ export class MoviesPopupComponent implements OnInit {
   public removable = true;
   public addOnBlur = true;
   public settings = {};
+
+
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+  public dataImages:DataImages ={
+    poster_file : '',
+    landscape_poster_file:'',
+    thumb_file:'',
+  }
   
+  public preview:Preview ={
+    poster_file : '',
+    landscape_poster_file:'',
+    thumb_file:'',
+  }
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+
   @ViewChild('multiSelect') multiSelect:any;
   @ViewChild('chipList') chipList:any;
 
@@ -36,6 +60,21 @@ export class MoviesPopupComponent implements OnInit {
     console.log('ngOnInitPopup', this.data.payload);
     this.dataJson = this.data.payload
     this.genders = this.data.genders
+
+
+    /*Asiganmos los sorce para la Previsualizacion de imagenes */
+
+    if (Object.keys(this.data.payload).length > 0) {
+
+      this.preview['poster_file'] = (this.data.payload.hasOwnProperty('poster_url')) 
+                                    ?  this.data.payload.poster_url : ''
+
+      this.preview['landscape_poster_file'] = (this.data.payload.hasOwnProperty('landscape_poster_url')) ? this.data.payload.landscape_poster_url : ''
+
+      this.preview['thumb_file'] = (this.data.payload.hasOwnProperty('thumb')) ? this.data.payload.thumb :''
+    }
+
+    /* Asiganmos los sorce para la  */
     /* Settings del Ng-dropdown  */
     this.settings = {
       singleSelection: false,
@@ -80,12 +119,15 @@ export class MoviesPopupComponent implements OnInit {
       director:  new FormControl (item.director ||'', [Validators.required]),
       duration: new FormControl(item.duration || '', [Validators.required]),
       landscape_poster_url: new FormControl(item.landscape_poster_url || ''),
+      landscape_poster_file: new FormControl(''),
       poster_url: new FormControl(item.poster_url || '', [Validators.required]),
+      poster_file: new FormControl(''),
       resource_file_name: new FormControl(item.resource_file_name || '', ),
       resource_file_url: new FormControl(item.resource_file_url || '', [Validators.required]),
       resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
       resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', [Validators.required]),
-      thumb: new FormControl(item.thumb || '', ),
+      thumb: new FormControl(item.thumb || '',),
+      thumb_file: new FormControl(item.thumb || '',),
       score_average: new FormControl(item.score_average || '', ),
       year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
       genders: new FormControl(  genders ||'', [Validators.required]),
@@ -138,15 +180,38 @@ export class MoviesPopupComponent implements OnInit {
     linkElement.click();
   }
 
+  uploadImagen(target: any,type:string){
+
+    const file:File = target.files[0]
+
+    if(!file){
+      return;
+    }
+
+    /* console.log(file); */
+
+    this.dataImages[`${type}`] = file;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file); 
+    reader.onloadend = () => this.preview[`${type}`] = reader.result 
+  }
+
   submit() {
+    
+    /* console.log(this.dataImages); */
+    /* En el objeto dataImages se almacena la info de tipo File asociados a las imagenes */
+    Object.entries(this.dataImages).forEach((key) =>{
+      this.itemForm.value[`${key[0]}`] = key[1]
+    })
 
     if (this.itemForm.value.genders.length > 0){
-
       this.itemForm.value.genders = this.itemForm.value.genders.map((gender:any)=>{
         return gender.name
       })
     }
- 
+
+    console.log(this.itemForm?.value);
      this.dialogRef.close(this.itemForm?.value)
    }
 

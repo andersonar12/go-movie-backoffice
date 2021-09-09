@@ -1,303 +1,301 @@
 <h1 matDialogTitle>{{data.title}}</h1>
 
 <form [formGroup]="itemForm">
-    
-     <div class="row">
 
-       <div class="pr-1 col-4">
-         <mat-form-field class="w-100" appearance="outline">
-           <mat-label>Titulo de la Pelicula</mat-label>
-           <input
-             matInput
-             name="name"
-             formControlName="name"
-             placeholder="Titulo de la Pelicula"
-           >
-           <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Titulo de la Pelicula es requerido
-           </mat-error>
-           <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+  <div class="row">
+
+    <div class="pr-1 col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Titulo de la Pelicula</mat-label>
+        <input matInput name="name" formControlName="name" placeholder="Titulo de la Pelicula">
+        <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+          Titulo de la Pelicula es requerido
+        </mat-error>
+        <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
              El nombre debe tener un mínimo de 3 caracteres
            </mat-error> -->
-         </mat-form-field>
-       </div>
+      </mat-form-field>
+    </div>
 
-       <div class="pr-1 col-2">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Año de la Pelicula</mat-label>
-          <input
-            matInput
-            name="year"
-            type="number"
-            formControlName="year"
-            placeholder="2020"
-            minlength="4"
-          >
-          <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
-            Año es requerido
-          </mat-error>
-        </mat-form-field> 
-     
-      </div>
+    <div class="pr-1 col-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Año de la Pelicula</mat-label>
+        <input matInput name="year" type="number" formControlName="year" placeholder="2020" minlength="4">
+        <mat-error *ngIf="itemForm.controls['year'].hasError('required')">
+          Año es requerido
+        </mat-error>
+      </mat-form-field>
 
-      <div class="pr-1 col-2">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Director</mat-label>
-          <input
-            matInput
-            name="director"
-            formControlName="director"
-            placeholder="Director"
-          >
-          <mat-error *ngIf="itemForm.controls['director'].hasError('required')">
-            Director es requerido
-          </mat-error>
-         <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+    </div>
+
+    <div class="pr-1 col-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Director</mat-label>
+        <input matInput name="director" formControlName="director" placeholder="Director">
+        <mat-error *ngIf="itemForm.controls['director'].hasError('required')">
+          Director es requerido
+        </mat-error>
+        <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
             El nombre debe tener un mínimo de 3 caracteres
           </mat-error> -->
-        </mat-form-field>
-      </div>
+      </mat-form-field>
+    </div>
 
-      <div class="pr-1 col-2">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Duración</mat-label>
-          <input
-            matInput
-            name="duration"
-            formControlName="duration"
-            placeholder=""
-            type="number"
-          >
-          <mat-error *ngIf="itemForm.controls['duration'].hasError('required')">
-            Duracion es requerida
-          </mat-error>
-         <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+    <div class="pr-1 col-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Duración</mat-label>
+        <input matInput name="duration" formControlName="duration" placeholder="" type="number">
+        <mat-error *ngIf="itemForm.controls['duration'].hasError('required')">
+          Duracion es requerida
+        </mat-error>
+        <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
             El nombre debe tener un mínimo de 3 caracteres
           </mat-error> -->
-        </mat-form-field>
-      </div>
+      </mat-form-field>
+    </div>
 
-      <div class="pr-1 col-2">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Ranking</mat-label>
-          <input matInput name="score_average" formControlName="score_average" placeholder="Ranking">
-        </mat-form-field>
-      </div>
- 
-     </div>
+    <div class="pr-1 col-2">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Ranking</mat-label>
+        <input matInput name="score_average" formControlName="score_average" placeholder="Ranking">
+      </mat-form-field>
+    </div>
 
-     <p><strong>Imagenes de la Pelicula</strong></p>
-     <div class="row">
+  </div>
 
-      <div class="pr-1 col-4">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Poster URL (Miniatura)</mat-label>
-          <input
-            matInput
-            name="poster_url"
-            formControlName="poster_url"
-            placeholder="Poster URL"
-          >
-          <mat-error *ngIf="itemForm.controls['poster_url'].hasError('required')">
-            Poster URL (Miniatura) es requerido
-          </mat-error>
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
+  <p><strong>Imagenes de la Pelicula</strong></p>
 
-      <div class="pr-1 col-4">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Landscape Poster URL (Imagen Grande)</mat-label>
-          <input
-            matInput
-            name="landscape_poster_url"
-            formControlName="landscape_poster_url"
-            placeholder="Landscape Poster URL"
-          >
-         <mat-error *ngIf="itemForm.controls['landscape_poster_url'].hasError('required')">
-          Landscape Poster URL es requerido
-          </mat-error>
-          <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
+  <mat-tab-group dynamicHeight>
+      <!-- Input de Imagenes -->
+    <mat-tab label="URL's de Imagenes">
 
-      <div class="pr-1 col-4">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>URL Imagen (apartado Mas Info) </mat-label>
-          <input
-            matInput
-            name="thumb"
-            formControlName="thumb"
-            placeholder="URL Imagen (apartado Mas Info) "
-          >
-          <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
-            URL Imagen es requerido
-          </mat-error>
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
+      <div class="row">
 
-      
-
-     </div>
-
-     <p><strong>Video y Trailer de la Pelicula</strong></p>
-     <div class="row">
-
-      <div class="pr-1 col-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>URL Pelicula</mat-label>
-          <input
-            matInput
-            name="resource_file_url"
-            formControlName="resource_file_url"
-            placeholder="URL Pelicula"
-          >
-          <mat-error *ngIf="itemForm.controls['resource_file_url'].hasError('required')">
-            URL Pelicula es requerido
-          </mat-error>
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-      <div class="pr-1 col-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>URL del Trailer</mat-label>
-          <input
-            matInput
-            name="resource_trailer_file_url"
-            formControlName="resource_trailer_file_url"
-            placeholder="URL del Trailer"
-          >
-           <mat-error *ngIf="itemForm.controls['resource_trailer_file_url'].hasError('required')">
-            URL del Trailer es requerido
-          </mat-error>
-          <!--<mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-
-      <div class="pr-1 col-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Nombre del Archivo video</mat-label>
-          <input
-            matInput
-            name="resource_file_name"
-            formControlName="resource_file_name"
-            placeholder="Nombre del Archivo video"
-          >
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Nombre es requerido
-          </mat-error>
-          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-
-      <div class="pr-1 col-3">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Nombre del Archivo Trailer</mat-label>
-          <input
-            matInput
-            name="resource_trailer_file_name"
-            formControlName="resource_trailer_file_name"
-            placeholder="Nombre del Archivo Trailer"
-          >
-          <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-            Nombre es requerido
-          </mat-error>
-          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-            El nombre debe tener un mínimo de 3 caracteres
-          </mat-error> -->
-        </mat-form-field>
-      </div>
-
-      
-      
-     </div>
-     <div class="row">
-       
-      <div class="pr-1 col" *ngIf="genders.length > 0">
-      
-        <ng-multiselect-dropdown #multiSelect  [placeholder]="'Selecciona los generos' "[settings]="settings"
-          [data]="genders" formControlName="genders"  (onSelect)="onItemSelect($event)">
-        </ng-multiselect-dropdown>
-      
-        <span *ngIf="itemForm.controls['genders'].errors?.required" style="color: #f44336; padding: 0 1em; font-size: 75%;">
-          Generos son requeridos
-        </span>
-      
-      </div>
-
-      <div class="pr-1 col-6">
-        <mat-form-field class="w-100" appearance="fill">
-         <mat-label>Artistas</mat-label>
-         <mat-chip-list #chipList aria-label="Seleccion de Autor" formControlName="artists" >
-           <mat-chip *ngFor="let artist of artists" [selectable]="selectable"
-                    [removable]="removable" (removed)="remove(artist)">
-             {{artist.name}}
-             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-           </mat-chip>
-           <input placeholder="Nuevo Actor..."
-                  [matChipInputFor]="chipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="addOnBlur"
-                  (matChipInputTokenEnd)="add($event)">
-         </mat-chip-list>
-
-        <mat-error *ngIf="chipList.errorState">Debe ingresar artistas</mat-error>
-       </mat-form-field>
-
-      </div>
-     </div>
-
-     <div class="row">
-       <div class="col-12">
-        <div class="pr-1 col">
+        <div class="pr-1 col-4">
           <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Descripción</mat-label>
-            <textarea
-              matInput
-              name="description"
-              formControlName="description"
-              placeholder="Descripción de la Pelicula"
-            ></textarea>
-            <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
-              Descripción es requerida
+            <mat-label>Poster URL (Miniatura)</mat-label>
+            <input matInput name="poster_url" formControlName="poster_url" placeholder="Poster URL">
+            <mat-error *ngIf="itemForm.controls['poster_url'].hasError('required')">
+              Poster URL (Miniatura) es requerido
             </mat-error>
-         
+            <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                El nombre debe tener un mínimo de 3 caracteres
+              </mat-error> -->
           </mat-form-field>
         </div>
-       </div>
-     </div>
 
-   
-         <div fxFlex="100" class="mt-1">
-           <div class="row d-flex justify-content-between">
-             <div class="col-2">
-              <button class="btn btn-primary" type="button" (click)="submit()"  [disabled]="itemForm.invalid" > Guardar </button>
-             </div>
+        <div class="pr-1 col-4">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Landscape Poster URL (Imagen Grande)</mat-label>
+            <input matInput name="landscape_poster_url" formControlName="landscape_poster_url"
+              placeholder="Landscape Poster URL">
+            <mat-error *ngIf="itemForm.controls['landscape_poster_url'].hasError('required')">
+              Landscape Poster URL es requerido
+            </mat-error>
+            <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                El nombre debe tener un mínimo de 3 caracteres
+              </mat-error> -->
+          </mat-form-field>
+        </div>
 
-             <div class="col-2" *ngIf="this.data.payload.hasOwnProperty('_id')">
-              <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()"><mat-icon aria-hidden="false" aria-label="Example home icon">data_object</mat-icon> Exportar JSON </button>
-             </div>
+        <div class="pr-1 col-4">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>URL Imagen (apartado Mas Info) </mat-label>
+            <input matInput name="thumb" formControlName="thumb" placeholder="URL Imagen (apartado Mas Info) ">
+            <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
+              URL Imagen es requerido
+            </mat-error>
+            <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                El nombre debe tener un mínimo de 3 caracteres
+              </mat-error> -->
+          </mat-form-field>
+        </div>
 
+      </div>
 
-             <div class="col-2">
-              <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger">Cancelar </button>
-
-             </div>
-           </div>
-         </div>
+    </mat-tab> <!-- Carga de Imagenes -->
+    <mat-tab label="Gestion de Imagenes">
+  
+      <div class="row d-flex justify-content-center">
+        <div class="col-6">
+          <p><strong>Poster (Miniatura)</strong></p>
+          <img *ngIf="!preview.poster_file" src="assets/img/img-preview.png" width="200px" class="" />
+          <img *ngIf="preview.poster_file" [src]="preview.poster_file" class="img-fluid" />
     
+          <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen"(change)="uploadImagen($event.target,'poster_file')">
+          <!--  -->
+    
+          <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                </p>
+     -->
+        </div>
+    
+        <div class="col-6">
+          <p><strong>Landscape Poster  (Imagen Grande)</strong></p>
+          <img *ngIf="!preview.landscape_poster_file" src="assets/img/img-preview.png" width="200px" class="" />
+          <img *ngIf="preview.landscape_poster_file" [src]="preview.landscape_poster_file" class="img-fluid" />
+    
+          <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen" (change)="uploadImagen($event.target,'landscape_poster_file')">
+    
+    
+          <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                </p> -->
+    
+        </div>
+    
+        <div class="col-6">
+          <p><strong>Imagen apartado "Mas Info"</strong></p>
+          <img *ngIf="!preview.thumb_file" src="assets/img/img-preview.png" width="200px" class="" />
+          <img *ngIf="preview.thumb_file" [src]="preview.thumb_file" class="img-fluid" />
+    
+          <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen" (change)="uploadImagen($event.target,'thumb_file')">
+          <!-- (change)="subirArchivo($event.target)" -->
+    
+          <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                </p> -->
+    
+        </div>
+    
+    
+      </div>
+ 
+    </mat-tab>
+  </mat-tab-group>
 
-     </form>
+
+
+  <p><strong>Video y Trailer de la Pelicula</strong></p>
+  <div class="row">
+
+    <div class="pr-1 col-3">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>URL Pelicula</mat-label>
+        <input matInput name="resource_file_url" formControlName="resource_file_url" placeholder="URL Pelicula">
+        <mat-error *ngIf="itemForm.controls['resource_file_url'].hasError('required')">
+          URL Pelicula es requerido
+        </mat-error>
+        <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="pr-1 col-3">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>URL del Trailer</mat-label>
+        <input matInput name="resource_trailer_file_url" formControlName="resource_trailer_file_url"
+          placeholder="URL del Trailer">
+        <mat-error *ngIf="itemForm.controls['resource_trailer_file_url'].hasError('required')">
+          URL del Trailer es requerido
+        </mat-error>
+        <!--<mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+      </mat-form-field>
+    </div>
+
+    <div class="pr-1 col-3">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nombre del Archivo video</mat-label>
+        <input matInput name="resource_file_name" formControlName="resource_file_name"
+          placeholder="Nombre del Archivo video">
+        <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+      </mat-form-field>
+    </div>
+
+    <div class="pr-1 col-3">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nombre del Archivo Trailer</mat-label>
+        <input matInput name="resource_trailer_file_name" formControlName="resource_trailer_file_name"
+          placeholder="Nombre del Archivo Trailer">
+        <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
+            Nombre es requerido
+          </mat-error>
+          <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+            El nombre debe tener un mínimo de 3 caracteres
+          </mat-error> -->
+      </mat-form-field>
+    </div>
+
+
+
+  </div>
+  <div class="row">
+
+    <div class="pr-1 col" *ngIf="genders.length > 0">
+
+      <ng-multiselect-dropdown #multiSelect [placeholder]="'Selecciona los generos' " [settings]="settings"
+        [data]="genders" formControlName="genders" (onSelect)="onItemSelect($event)">
+      </ng-multiselect-dropdown>
+
+      <span *ngIf="itemForm.controls['genders'].errors?.required"
+        style="color: #f44336; padding: 0 1em; font-size: 75%;">
+        Generos son requeridos
+      </span>
+
+    </div>
+
+    <div class="pr-1 col-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Artistas</mat-label>
+        <mat-chip-list #chipList aria-label="Seleccion de Autor" formControlName="artists">
+          <mat-chip *ngFor="let artist of artists" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(artist)">
+            {{artist.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Nuevo Actor..." [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+
+        <mat-error *ngIf="chipList.errorState">Debe ingresar artistas</mat-error>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="pr-1 col">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput name="description" formControlName="description"
+            placeholder="Descripción de la Pelicula"></textarea>
+          <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
+            Descripción es requerida
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+
+  <div fxFlex="100" class="mt-1">
+    <div class="row d-flex justify-content-between">
+      <div class="col-2"><!-- [disabled]="itemForm.invalid" -->
+        <button class="btn btn-primary" type="button" (click)="submit()" > Guardar
+        </button>
+      </div>
+
+      <div class="col-2" *ngIf="this.data.payload.hasOwnProperty('_id')">
+        <button class="btn btn-success d-flex align-items-center" type="button" (click)="exportJSON()">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">data_object</mat-icon> Exportar JSON
+        </button>
+      </div>
+
+
+      <div class="col-2">
+        <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger">Cancelar </button>
+
+      </div>
+    </div>
+  </div>
+
+
+</form>

@@ -39,45 +39,78 @@ export class ResourcesService {
 
   /* Buscador */
 
-  addMovie(data: Object) {
+  /* eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnb19tb3ZpZSIsImV4cCI6MTYzMzUzMDc2MCwiaWF0IjoxNjMxMTExNTYwLCJpc3MiOiJnb19tb3ZpZSIsImp0aSI6IjAyNDA0ZDAwLTk5OTctNDFhYy04NjhmLWMzM2QwZGJjMzc2ZSIsIm5iZiI6MTYzMTExMTU1OSwic3ViIjoiNzIiLCJ0eXAiOiJhY2Nlc3MifQ.nrh6rrB0wG-ypwkeRd2uXGRVF5QBJqhTljLbAyyyXF8hDibsSCImbjIsaVnbD8HLijOpZEXttvaaC1Jrgxl1sw */
+  addMovie(data: Object | any) {
+
+    delete data.id_
 
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_movies`;
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
       'Authorization': `Bearer ${token}`
     })
 
-    const body = {
+    /* const body = {
       resource_movie:
       {
         ...data
       }
-    }
+    } */
+
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      if(key[0]=='genders' ||key[0]=='artists' ){
+
+        formData.append(`resource_movie[${key[0]}]`, JSON.stringify(key[1]));
+      } else {
+        formData.append(`resource_movie[${key[0]}]`,key[1]);
+      }
+
+    })
 
 
-    return this.http.post<ResourceMovieM>(endpoint, body, { headers: headers, withCredentials: true })
+    return this.http.post<any>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
-  updateMovie(data: any) {
+  updateMovie(data: Object | any) {
 
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_movies/${data.id_}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Authorization': `Bearer ${token}`
-    })
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
 
-    const body = {
+    delete data.id_
+
+    /* const body = {
       resource_movie:
       {
         ...data
       }
-    }
+    } */
 
-    return this.http.patch<ResourceMovieM>(endpoint, body, { headers: headers, withCredentials: true })
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      if(key[0]=='genders' ||key[0]=='artists' ){
+
+        formData.append(`resource_movie[${key[0]}]`, JSON.stringify(key[1]));
+      } else {
+        formData.append(`resource_movie[${key[0]}]`,key[1]);
+      }
+
+    })
+
+    return this.http.patch<ResourceMovieM>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
   deleteMovie(id: any) {
@@ -339,8 +372,8 @@ export class ResourcesService {
     formData.append('main_slider[title]', content.title);
     formData.append('main_slider[description]', content.description);
     formData.append('main_slider[status]',`${content.status}`);
-    formData.append('main_slider[link_1]', 'link prueba');
-    formData.append('main_slider[link_2]', 'link prueba');
+    formData.append('main_slider[link_1]', content.link_1);
+    formData.append('main_slider[link_2]', content.link_2);
     formData.append('main_slider[order]', content['order']);
 
     return this.http.post<any>(endpoint, formData, { headers})
