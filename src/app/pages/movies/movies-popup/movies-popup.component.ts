@@ -120,7 +120,7 @@ export class MoviesPopupComponent implements OnInit {
       duration: new FormControl(item.duration || '', [Validators.required]),
       landscape_poster_url: new FormControl(item.landscape_poster_url || ''),
       landscape_poster_file: new FormControl(''),
-      poster_url: new FormControl(item.poster_url || '', [Validators.required]),
+      poster_url: new FormControl(item.poster_url || '', ),
       poster_file: new FormControl(''),
       resource_file_name: new FormControl(item.resource_file_name || '', ),
       resource_file_url: new FormControl(item.resource_file_url || '', [Validators.required]),

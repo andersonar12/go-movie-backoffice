@@ -39,7 +39,7 @@ export class ResourcesService {
 
   /* Buscador */
 
-  /* eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnb19tb3ZpZSIsImV4cCI6MTYzMzUzMDc2MCwiaWF0IjoxNjMxMTExNTYwLCJpc3MiOiJnb19tb3ZpZSIsImp0aSI6IjAyNDA0ZDAwLTk5OTctNDFhYy04NjhmLWMzM2QwZGJjMzc2ZSIsIm5iZiI6MTYzMTExMTU1OSwic3ViIjoiNzIiLCJ0eXAiOiJhY2Nlc3MifQ.nrh6rrB0wG-ypwkeRd2uXGRVF5QBJqhTljLbAyyyXF8hDibsSCImbjIsaVnbD8HLijOpZEXttvaaC1Jrgxl1sw */
+
   addMovie(data: Object | any) {
 
     delete data.id_

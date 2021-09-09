@@ -278,8 +278,8 @@
 
   <div fxFlex="100" class="mt-1">
     <div class="row d-flex justify-content-between">
-      <div class="col-2"><!-- [disabled]="itemForm.invalid" -->
-        <button class="btn btn-primary" type="button" (click)="submit()" > Guardar
+      <div class="col-2">
+        <button class="btn btn-primary" type="button" [disabled]="itemForm.invalid" (click)="submit()" > Guardar
         </button>
       </div>
 
