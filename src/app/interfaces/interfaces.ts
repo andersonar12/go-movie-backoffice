@@ -66,3 +66,18 @@ export interface Season {
     type: number;
     year: string;
 }
+
+export interface SliderHome {
+    description: string;
+    id: number;
+    img_url: string;
+    link_1: string;
+    link_2: string;
+    order?:string;
+    status: boolean;
+    title: string;
+}
+
+export interface RespSliderHome {
+    data: SliderHome[];
+}

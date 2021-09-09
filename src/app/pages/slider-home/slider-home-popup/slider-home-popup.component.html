@@ -1,0 +1,111 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<form [formGroup]="itemForm">
+
+    <div class="row">
+
+        <div class="pr-1 col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Titulo del Slider</mat-label>
+                <input matInput name="title" formControlName="title" placeholder="Titulo del Slider">
+                <mat-error *ngIf="itemForm.controls['title'].hasError('required')">
+                    Titulo del slider es requerido
+                </mat-error>
+
+            </mat-form-field>
+        </div>
+
+        <div class="pr-1 col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Link 1</mat-label>
+                <input matInput name="link_1" type="text" formControlName="link_1" placeholder="Link 1">
+                <!-- <mat-error *ngIf="itemForm.controls['link_1'].hasError('required')">
+            Link 1 es requerido
+          </mat-error> -->
+            </mat-form-field>
+
+        </div>
+
+        <div class="pr-1 col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Link 2</mat-label>
+                <input matInput name="link_2" type="text" formControlName="link_2" placeholder="Link 2">
+                <!-- <mat-error *ngIf="itemForm.controls['link_2'].hasError('required')">
+            Link 2 es requerido
+          </mat-error> -->
+            </mat-form-field>
+
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Nro Orden Slider</mat-label>
+                <input matInput type="number" name="order" formControlName="order" placeholder="Nro Orden Slider">
+                <mat-error *ngIf="itemForm.controls['order'].hasError('required')">
+                    Orden es requerido
+                </mat-error>
+
+            </mat-form-field>
+
+        </div>
+        <div class="col-8">
+            <div class="pr-1 col">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput name="description" formControlName="description"
+                        placeholder="Descripción del slider"></textarea>
+                    <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
+                        Descripción es requerida
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-2 d-flex align-items-center">
+            <mat-slide-toggle formControlName="status">{{(itemForm?.value['status']) ? 'Activo' : 'Inactivo'}}
+            </mat-slide-toggle>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-10">
+
+            <img *ngIf="!img_preview" src="assets/img/img-preview.png" width="200px" class="" />
+            <img *ngIf="img_preview" [src]="img_preview" class="img-fluid" />
+
+            <input type="file" class="btn btn-outline-primary" name="image" formControlName="image" accept="image/*"
+                placeholder="Subir Imagen" (change)="subirArchivo($event.target)">
+
+            <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+            </p>
+
+        </div> <!-- Para la previsualizacion y edicion de imagen -->
+
+        
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+        <div class="row d-flex justify-content-between">
+            <div class="col-2">
+                <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="itemForm.invalid"> Guardar
+                </button>
+            </div>
+
+
+            <div class="col-2">
+                <button (click)="dialogRef.close(false)" type="button" class="btn btn-danger">Cancelar </button>
+            </div>
+        </div>
+    </div>
+
+
+</form>

@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +32,8 @@ import { UpdateSeasonsPopupComponent } from './pages/series/update-seasons-popup
 import { UpdateChaptersPopupComponent } from './pages/series/update-chapters-popup/update-chapters-popup.component';
 import { SliderMoviesComponent } from './pages/slider-movies/slider-movies.component';
 import { SliderSeriesComponent } from './pages/slider-series/slider-series.component';
+import { SliderHomeComponent } from './pages/slider-home/slider-home.component';
+import { SliderHomePopupComponent } from './pages/slider-home/slider-home-popup/slider-home-popup.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { SliderSeriesComponent } from './pages/slider-series/slider-series.compo
     UpdateSeasonsPopupComponent,
     UpdateChaptersPopupComponent,
     SliderMoviesComponent,
-    SliderSeriesComponent
+    SliderSeriesComponent,
+    SliderHomeComponent,
+    SliderHomePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +74,7 @@ import { SliderSeriesComponent } from './pages/slider-series/slider-series.compo
     MatTabsModule,
     NgMultiSelectDropDownModule,
     DragDropModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

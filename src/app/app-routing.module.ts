@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { SeriesComponent } from './pages/series/series.component';
+import { SliderHomeComponent } from './pages/slider-home/slider-home.component';
 import { SliderMoviesComponent } from './pages/slider-movies/slider-movies.component';
 import { SliderSeriesComponent } from './pages/slider-series/slider-series.component';
 
@@ -10,6 +11,7 @@ const routes: Routes = [
   {path:'series', component: SeriesComponent},
   {path:'slider-movies', component: SliderMoviesComponent},
   {path:'slider-series', component: SliderSeriesComponent},
+  {path:'slider-home', component: SliderHomeComponent},
   {path:'**', pathMatch: 'full', redirectTo:'movies'}
 ];
 
