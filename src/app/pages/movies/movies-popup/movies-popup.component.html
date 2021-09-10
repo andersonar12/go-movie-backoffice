@@ -57,7 +57,16 @@
     <div class="pr-1 col-2">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Ranking</mat-label>
-        <input matInput name="score_average" formControlName="score_average" placeholder="Ranking">
+        <input min="0" max="5" type="number" matInput name="score_average" formControlName="score_average" placeholder="Ejemplo 3.5">
+        <mat-error *ngIf="itemForm.controls['score_average'].hasError('min') || itemForm.controls['score_average'].hasError('max') ">
+          ** Rango aceptado 0-5
+        </mat-error> 
+
+        <mat-error *ngIf="itemForm.controls['score_average'].hasError('multiploinValid') ">
+          ** Puntuación solo debe ser multiplos de 0.5
+        </mat-error> 
+
+
       </mat-form-field>
     </div>
 

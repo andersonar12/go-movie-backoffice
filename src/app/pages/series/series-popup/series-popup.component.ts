@@ -1,8 +1,16 @@
 import { Component, OnInit,OnDestroy, Inject, ViewChild, ChangeDetectorRef  } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl,FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl,FormArray, AbstractControl } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips'
+
+interface Preview {
+  [key: string] : any;
+}
+
+interface DataImages {
+  [key: string] : any;
+}
 
 @Component({
   selector: 'app-series-popup',
@@ -10,15 +18,34 @@ import {MatChipInputEvent} from '@angular/material/chips'
   styleUrls: ['./series-popup.component.scss']
 })
 export class SeriesPopupComponent implements OnInit {
+
   public dataJson = {}
+
   public itemForm!: FormGroup;
   public genders = []
+  public gendersPicked = []
   public selectable = true;
   public removable = true;
   public addOnBlur = true;
   public settings = {};
   public isNew = true
   /* public seasons =[] */
+
+
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+  public dataImages:DataImages ={
+    poster_file : '',
+    landscape_poster_file:'',
+    thumb_file:'',
+  }
+  
+  public preview:Preview ={
+    poster_file : '',
+    landscape_poster_file:'',
+    thumb_file:'',
+  }
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+
   
   @ViewChild('multiSelect') multiSelect:any;
   @ViewChild('chipList') chipList:any;
@@ -35,8 +62,22 @@ export class SeriesPopupComponent implements OnInit {
   ngOnInit(): void {
     console.log('ngOnInitPopup', this.data.payload);
     this.isNew = this.data.new /* Aqui ocultamos o mostramos las opciones para  temporadas y capitulos*/
-    this.genders = this.data.genders
     this.dataJson = this.data.payload
+    this.genders = this.data.genders
+
+    /*Asiganmos los source para la Previsualizacion de imagenes */
+
+    if (Object.keys(this.data.payload).length > 0) {
+
+      this.preview['poster_file'] = (this.data.payload.hasOwnProperty('poster_url')) 
+                                    ?  this.data.payload.poster_url : ''
+
+      this.preview['landscape_poster_file'] = (this.data.payload.hasOwnProperty('landscape_poster_url')) ? this.data.payload.landscape_poster_url : ''
+
+      this.preview['thumb_file'] = (this.data.payload.hasOwnProperty('thumb')) ? this.data.payload.thumb :''
+    }
+
+    /* Asiganmos los sorce para la Previsualizacion de imagenes  */
 
     /* Settings del Ng-dropdown  */
     this.settings = {
@@ -72,6 +113,8 @@ export class SeriesPopupComponent implements OnInit {
         return {_id:g['_id'],name:g['name']}
       })]
     }
+
+    
      
 
     
@@ -81,13 +124,16 @@ export class SeriesPopupComponent implements OnInit {
       description: new FormControl(item.description || '', [Validators.required]),
       director:  new FormControl (item.director ||'', [Validators.required]),
       landscape_poster_url: new FormControl(item.landscape_poster_url || ''),
-      poster_url: new FormControl(item.poster_url || '', [Validators.required]),
+      landscape_poster_file: new FormControl(''),
+      poster_url: new FormControl(item.poster_url || ''),
+      poster_file: new FormControl(''),
       resource_file_name: new FormControl(item.resource_file_name || '', ),
       resource_file_url: new FormControl(item.resource_file_url || '', ),
       resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
       resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', ),
       thumb: new FormControl(item.thumb || '', ),
-      score_average: new FormControl(item.score_average || '', ),
+      thumb_file: new FormControl(''),
+      score_average: new FormControl(item.score_average || '',[Validators.max(5),Validators.min(0),this.ValidateMultiplo ] ),
       year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
       genders: new FormControl(  genders ||'', [Validators.required]),
       artists: new FormControl( this.artists, [Validators.required]),
@@ -95,6 +141,14 @@ export class SeriesPopupComponent implements OnInit {
        /*  [ '', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]]  */
     })
 
+  }
+
+  ValidateMultiplo(control: AbstractControl): {[key: string]: any} | null  {
+    if (control.value == 0 ||control.value == 0.5 ||control.value == 1 ||control.value == 1.5 ||control.value == 2 || control.value == 2.5 ||control.value == 3 ||control.value == 3.5 ||control.value == 4||control.value == 4.5 ||control.value == 5 ) {
+      return null
+    }
+
+    return { 'multiploinValid': true };
   }
 
   addSeason(){
@@ -133,6 +187,9 @@ export class SeriesPopupComponent implements OnInit {
     });
   } */
 
+  public onSelectAll(event:any){
+    console.log(event);
+  }
   public onItemSelect(item: any) {
     /* console.log(item); */
   }
@@ -165,30 +222,51 @@ export class SeriesPopupComponent implements OnInit {
     }
   }
 /* Logica Mat Chips componente Angular Material */
+exportJSON(){
+  let dataStr = JSON.stringify(this.dataJson, null, "\t");
+  let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+  let exportFileDefaultName = 'serie.json';
+
+  let linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', exportFileDefaultName);
+  linkElement.click();
+}
+
+  uploadImagen(target: any,type:string){
+
+    const file:File = target.files[0]
+
+    if(!file){
+      return;
+    }
+
+    /* console.log(file); */
+
+    this.dataImages[`${type}`] = file;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file); 
+    reader.onloadend = () => this.preview[`${type}`] = reader.result 
+  }
 
   submit() {
 
-    console.log(this.itemForm?.value);
-    if (this.itemForm.value.genders.length > 0){
+    /* En el objeto dataImages se almacena la info de tipo File asociados a las imagenes */
+    Object.entries(this.dataImages).forEach((key) =>{
+      this.itemForm.value[`${key[0]}`] = key[1]
+    })
+    
+    /* if (this.itemForm.value.genders.length > 0){
 
       this.itemForm.value.genders = this.itemForm.value.genders.map((gender:any)=>{
         return gender.name
       })
-    }
- 
+    } */
+    console.log(this.itemForm?.value);
      this.dialogRef.close(this.itemForm?.value)
    }
 
-   exportJSON(){
-    let dataStr = JSON.stringify(this.dataJson, null, "\t");
-    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-
-    let exportFileDefaultName = 'serie.json';
-
-    let linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  }
-
+  
 }

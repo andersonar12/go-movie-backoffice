@@ -70,7 +70,14 @@
            <div class="pr-1 col-2">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Ranking</mat-label>
-              <input matInput name="score_average" formControlName="score_average" placeholder="Ranking">
+              <input min="0" max="5" type="number" matInput name="score_average" formControlName="score_average" placeholder="Ejemplo 3.5">
+              <mat-error *ngIf="itemForm.controls['score_average'].hasError('min') || itemForm.controls['score_average'].hasError('max') ">
+                ** Rango aceptado 0-5
+              </mat-error> 
+
+              <mat-error *ngIf="itemForm.controls['score_average'].hasError('multiploinValid') ">
+                ** Puntuación solo debe ser multiplos de 0.5
+              </mat-error> 
             </mat-form-field>
           </div>
      
@@ -78,65 +85,102 @@
           </div>
      
           <p><strong>Imagenes de la Serie</strong></p>
-          <div class="row">
-     
-           <div class="pr-1 col-4">
-             <mat-form-field class="w-100" appearance="outline">
-               <mat-label>Poster URL (Miniatura)</mat-label>
-               <input
-                 matInput
-                 name="poster_url"
-                 formControlName="poster_url"
-                 placeholder="Poster URL"
-               >
-               <mat-error *ngIf="itemForm.controls['poster_url'].hasError('required')">
-                 Poster URL (Miniatura) es requerido
-               </mat-error>
-               <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-                 El nombre debe tener un mínimo de 3 caracteres
-               </mat-error> -->
-             </mat-form-field>
-           </div>
-     
-           <div class="pr-1 col-4">
-             <mat-form-field class="w-100" appearance="outline">
-               <mat-label>Landscape Poster URL (Imagen Grande)</mat-label>
-               <input
-                 matInput
-                 name="landscape_poster_url"
-                 formControlName="landscape_poster_url"
-                 placeholder="Landscape Poster URL"
-               >
-              <mat-error *ngIf="itemForm.controls['landscape_poster_url'].hasError('required')">
-               Landscape Poster URL es requerido
-               </mat-error>
-               <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-                 El nombre debe tener un mínimo de 3 caracteres
-               </mat-error> -->
-             </mat-form-field>
-           </div>
-     
-           <div class="pr-1 col-4">
-             <mat-form-field class="w-100" appearance="outline">
-               <mat-label>URL Imagen (apartado Mas Info) </mat-label>
-               <input
-                 matInput
-                 name="thumb"
-                 formControlName="thumb"
-                 placeholder="URL Imagen (apartado Mas Info) "
-               >
-               <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
-                 URL Imagen es requerido
-               </mat-error>
-               <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
-                 El nombre debe tener un mínimo de 3 caracteres
-               </mat-error> -->
-             </mat-form-field>
-           </div>
-     
-           
-     
-          </div>
+          <mat-tab-group dynamicHeight>
+            <!-- Input de Imagenes -->
+          <mat-tab label="URL's de Imagenes">
+      
+            <div class="row">
+      
+              <div class="pr-1 col-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Poster URL (Miniatura)</mat-label>
+                  <input matInput name="poster_url" formControlName="poster_url" placeholder="Poster URL">
+                  <mat-error *ngIf="itemForm.controls['poster_url'].hasError('required')">
+                    Poster URL (Miniatura) es requerido
+                  </mat-error>
+                  <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                      El nombre debe tener un mínimo de 3 caracteres
+                    </mat-error> -->
+                </mat-form-field>
+              </div>
+      
+              <div class="pr-1 col-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Landscape Poster URL (Imagen Grande)</mat-label>
+                  <input matInput name="landscape_poster_url" formControlName="landscape_poster_url"
+                    placeholder="Landscape Poster URL">
+                  <mat-error *ngIf="itemForm.controls['landscape_poster_url'].hasError('required')">
+                    Landscape Poster URL es requerido
+                  </mat-error>
+                  <!--  <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                      El nombre debe tener un mínimo de 3 caracteres
+                    </mat-error> -->
+                </mat-form-field>
+              </div>
+      
+              <div class="pr-1 col-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>URL Imagen (apartado Mas Info) </mat-label>
+                  <input matInput name="thumb" formControlName="thumb" placeholder="URL Imagen (apartado Mas Info) ">
+                  <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
+                    URL Imagen es requerido
+                  </mat-error>
+                  <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
+                      El nombre debe tener un mínimo de 3 caracteres
+                    </mat-error> -->
+                </mat-form-field>
+              </div>
+      
+            </div>
+      
+          </mat-tab> <!-- Carga de Imagenes -->
+          <mat-tab label="Gestion de Imagenes">
+        
+            <div class="row d-flex justify-content-center">
+              <div class="col-6">
+                <p><strong>Poster (Miniatura)</strong></p>
+                <img *ngIf="!preview.poster_file" src="assets/img/img-preview.png" width="200px" class="" />
+                <img *ngIf="preview.poster_file" [src]="preview.poster_file" class="img-fluid" />
+          
+                <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen"(change)="uploadImagen($event.target,'poster_file')">
+                <!--  -->
+          
+                <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                      </p>
+           -->
+              </div>
+          
+              <div class="col-6">
+                <p><strong>Landscape Poster  (Imagen Grande)</strong></p>
+                <img *ngIf="!preview.landscape_poster_file" src="assets/img/img-preview.png" width="200px" class="" />
+                <img *ngIf="preview.landscape_poster_file" [src]="preview.landscape_poster_file" class="img-fluid" />
+          
+                <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen" (change)="uploadImagen($event.target,'landscape_poster_file')">
+          
+          
+                <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                      </p> -->
+          
+              </div>
+          
+              <div class="col-6">
+                <p><strong>Imagen apartado "Mas Info"</strong></p>
+                <img *ngIf="!preview.thumb_file" src="assets/img/img-preview.png" width="200px" class="" />
+                <img *ngIf="preview.thumb_file" [src]="preview.thumb_file" class="img-fluid" />
+          
+                <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen" (change)="uploadImagen($event.target,'thumb_file')">
+                <!-- (change)="subirArchivo($event.target)" -->
+          
+                <!-- <p>**Dimensiones recomendadas para el Banner del Slider:<strong> (Ancho: 848px - Alto: 362px) </strong>**
+                      </p> -->
+          
+              </div>
+          
+          
+            </div>
+       
+          </mat-tab>
+        </mat-tab-group>
      
           <p><strong>Video y Trailer de la Serie</strong></p>
           <div class="row">
@@ -220,7 +264,7 @@
            <div class="pr-1 col" *ngIf="genders.length > 0">
            
              <ng-multiselect-dropdown #multiSelect  [placeholder]="'Selecciona los generos' "[settings]="settings"
-               [data]="genders" formControlName="genders"  (onSelect)="onItemSelect($event)">
+               [data]="genders" formControlName="genders"  (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
              </ng-multiselect-dropdown>
            
              <span *ngIf="itemForm.controls['genders'].errors?.required" style="color: #f44336; padding: 0 1em; font-size: 75%;">

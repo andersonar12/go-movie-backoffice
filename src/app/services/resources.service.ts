@@ -130,44 +130,86 @@ export class ResourcesService {
   }
 
   /* Series */
-  addSerieComplete(data: any) {
+  addSerieComplete(data: Object | any) {
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_series`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Authorization': `Bearer ${token}`
-    })
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
+
     delete data._id
-    const body = {
+
+    /* const body = {
       resource_serie:
       {
         ...data
       }
+    } */
+
+    if (data.genders.length > 0){
+      data.genders = data.genders.map((gender:any)=>{
+        return gender.name
+      })
     }
 
-    return this.http.post<ResourceMovieM[]>(endpoint, body, { headers: headers, withCredentials: true })
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      if(key[0]=='genders' ||key[0]=='artists'||key[0]=='seasons'){
+
+        formData.append(`resource_serie[${key[0]}]`, JSON.stringify(key[1]));
+      } else {
+        formData.append(`resource_serie[${key[0]}]`,key[1]);
+      }
+
+    })
+
+    return this.http.post<any>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
   updateSerie(data: any, serie_id: Storage) {
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_series/${serie_id}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Authorization': `Bearer ${token}`
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`
     })
 
     delete data._id
     delete data.seasons // no se pueden enviar seasons dado que solo interesa es modificar la informacion descriptiva de la Serie
-    const body = {
+
+    /* const body = {
       resource_serie:
       {
         ...data
       }
+    } */
+
+    if (data.genders.length > 0){
+      data.genders = data.genders.map((gender:any)=>{
+        return gender.name
+      })
     }
 
-    return this.http.patch<ResourceMovieM[]>(endpoint, body, { headers: headers, withCredentials: true })
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      if(key[0]=='genders' ||key[0]=='artists'){
+
+        formData.append(`resource_serie[${key[0]}]`, JSON.stringify(key[1]));
+      } else {
+        formData.append(`resource_serie[${key[0]}]`,key[1]);
+      }
+
+    })
+
+    return this.http.patch<any>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
   deleteSerie(id: any) {

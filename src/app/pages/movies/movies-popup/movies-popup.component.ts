@@ -1,5 +1,5 @@
 import { Component, OnInit,OnDestroy, Inject, ViewChild, ChangeDetectorRef  } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips'
@@ -62,7 +62,7 @@ export class MoviesPopupComponent implements OnInit {
     this.genders = this.data.genders
 
 
-    /*Asiganmos los sorce para la Previsualizacion de imagenes */
+    /*Asiganmos los source para la Previsualizacion de imagenes */
 
     if (Object.keys(this.data.payload).length > 0) {
 
@@ -74,7 +74,7 @@ export class MoviesPopupComponent implements OnInit {
       this.preview['thumb_file'] = (this.data.payload.hasOwnProperty('thumb')) ? this.data.payload.thumb :''
     }
 
-    /* Asiganmos los sorce para la  */
+    /* Asiganmos los sorce para la Previsualizacion de imagenes  */
     /* Settings del Ng-dropdown  */
     this.settings = {
       singleSelection: false,
@@ -127,14 +127,22 @@ export class MoviesPopupComponent implements OnInit {
       resource_trailer_file_name: new FormControl(item.resource_trailer_file_name || '', ),
       resource_trailer_file_url: new FormControl(item.resource_trailer_file_url || '', [Validators.required]),
       thumb: new FormControl(item.thumb || '',),
-      thumb_file: new FormControl(item.thumb || '',),
-      score_average: new FormControl(item.score_average || '', ),
+      thumb_file: new FormControl(''),
+      score_average: new FormControl(item.score_average || '', [Validators.max(5),Validators.min(0),this.ValidateMultiplo]),
       year: new FormControl(item.year || '', [Validators.required,Validators.minLength(4)]),
       genders: new FormControl(  genders ||'', [Validators.required]),
       artists: new FormControl( this.artists, [Validators.required])
        /*  [ '', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]]  */
     })
 
+  }
+
+  ValidateMultiplo(control: AbstractControl): {[key: string]: any} | null  {
+    if (control.value == 0 ||control.value == 0.5 ||control.value == 1 ||control.value == 1.5 ||control.value == 2 || control.value == 2.5 ||control.value == 3 ||control.value == 3.5 ||control.value == 4||control.value == 4.5 ||control.value == 5 ) {
+      return null
+    }
+
+    return { 'multiploinValid': true };
   }
 
   public onItemSelect(item: any) {
