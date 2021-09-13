@@ -3,6 +3,14 @@ import { FormBuilder, Validators, FormGroup, FormControl,FormArray } from '@angu
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { ResourceMovieM } from 'src/app/interfaces/interfaces';
 
+interface Preview {
+  [key: string] : any;
+}
+
+interface DataImages {
+  [key: string] : any;
+}
+
 @Component({
   selector: 'app-update-chapters-popup',
   templateUrl: './update-chapters-popup.component.html',
@@ -15,12 +23,23 @@ export class UpdateChaptersPopupComponent implements OnInit {
   public seasonPick = ''
   public chapters:any = []
   public chapterPick = ''
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+  public dataImages:DataImages ={
+    thumb_file:'',
+  }
+  
+  public preview:Preview ={
+    thumb_file:'',
+  }
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<UpdateChaptersPopupComponent>,private fb: FormBuilder,) { }
 
   ngOnInit(): void {
     console.log('ngOnInitPopup', this.data.payload);
     this.seasons = this.data.payload.seasons
+
+
     /* this.buildItemForm(this.data.payload) */
   }
 
@@ -35,7 +54,8 @@ export class UpdateChaptersPopupComponent implements OnInit {
       description: new FormControl(item.description,[Validators.required] ),
       year: new FormControl(  item.year ,[Validators.required]),
       score_average:new FormControl( item.score_average),
-      thumb:new FormControl( item.thumb ,[Validators.required]),
+      thumb:new FormControl( item.thumb ),
+      thumb_file: new FormControl(''),
       resource_file_url: new FormControl( item.resource_file_url,[Validators.required]),
       delete:new FormControl(true)
     })
@@ -53,16 +73,39 @@ export class UpdateChaptersPopupComponent implements OnInit {
     const chapterCurrent = this.chapters.find((s:any)=>s._id == value)
     this.chapterPick = chapterCurrent['_id']
     this.buildItemForm(chapterCurrent)
+
+    this.preview['thumb_file'] = (chapterCurrent.hasOwnProperty('thumb')) ? chapterCurrent.thumb :''
   }
 
+  uploadImagen(target: any,type:string){
+
+    const file:File = target.files[0]
+
+    if(!file){
+      return;
+    }
+
+    /* console.log(file); */
+
+    this.dataImages[`${type}`] = file;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file); 
+    reader.onloadend = () => this.preview[`${type}`] = reader.result 
+  }
   
   submit() {
     this.itemForm.value._id = this.chapterPick
     this.itemForm.value.season_id = this.seasonPick
    /*  console.log(this.itemForm?.value); */
 
+    Object.entries(this.dataImages).forEach((key) =>{
+      this.itemForm.value[`${key[0]}`] = key[1]
+    })
+
     let body = this.itemForm?.value
     delete body.delete
+
     this.dialogRef.close(body)
    }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Gender, ResourceMovieM, RespSliderHome } from '../interfaces/interfaces';
 @Injectable({
@@ -160,6 +160,10 @@ export class ResourcesService {
 
       if(key[0]=='genders' ||key[0]=='artists'||key[0]=='seasons'){
 
+        if (key[0]=='seasons' && key[0].length == 0) {
+          return // esta validacion es por si el usuario no agrega temporadas ni capitulos
+        }
+
         formData.append(`resource_serie[${key[0]}]`, JSON.stringify(key[1]));
       } else {
         formData.append(`resource_serie[${key[0]}]`,key[1]);
@@ -278,44 +282,60 @@ export class ResourcesService {
   addChapter(data: any, serie_id: string, season_id: string) {
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_series/${serie_id}/seasons/${season_id}/chapters`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Authorization': `Bearer ${token}`
-    })
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
 
     delete data.season_id //No es necesario enviar un body con esos atributos
     delete data.serie_id //No es necesario enviar un body con esos atributos
 
-    const body = {
+    /* const body = {
       chapter: {
         ...data
       }
-    }
+    } */
 
-    return this.http.post<any>(endpoint, body, { headers: headers, withCredentials: true })
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      formData.append(`chapter[${key[0]}]`,key[1]);
+
+    })
+
+    return this.http.post<any>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
   updateChapter(data: any, serie_id: string, season_id: string, chapter_id: string) {
     const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
     const endpoint = `${this.apiUrl}/m_resources_series/${serie_id}/seasons/${season_id}/chapters/${chapter_id}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Authorization': `Bearer ${token}`
-    })
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
 
     delete data._id
     delete data.season_id
     delete data.serie_id  //No es necesario enviar un body con esos atributos
 
-    const body = {
+    /* const body = {
       chapter: {
         ...data
       }
-    }
+    } */
 
-    return this.http.patch<any>(endpoint, body, { headers: headers, withCredentials: true })
+    let formData = new FormData();
+
+    Object.entries(data).forEach((key:any) =>{
+
+      if(key[1]==''){
+        return
+      }
+
+      formData.append(`chapter[${key[0]}]`,key[1]);
+
+    })
+
+    return this.http.patch<any>(endpoint, formData, { headers: headers, withCredentials: true })
   }
 
   deleteChapter(serie_id: string, season_id: string, chapter_id: string) {

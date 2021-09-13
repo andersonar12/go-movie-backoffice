@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
     }).toPromise().then(({user})=>{
       console.log(user)
       localStorage.setItem('token',user.token);
-    })
+    }).catch(error=>location.reload())
   }
 }

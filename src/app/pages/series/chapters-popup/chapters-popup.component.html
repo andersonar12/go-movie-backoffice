@@ -85,7 +85,7 @@
 
     <div class="row">
 
-        <div class="pr-1 col-6">
+        <div class="pr-1 col-5">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>URL del Video Capitulo</mat-label>
               <input
@@ -100,20 +100,41 @@
             </mat-form-field>
           </div>
 
-        <div class="pr-1 col-6">
-            <mat-form-field class="w-100" appearance="outline">
-              <mat-label>URL Miniatura </mat-label>
-              <input
-                matInput
-                name="thumb"
-                formControlName="thumb"
-                placeholder="URL Miniatura"
-              >
-              <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
-                URL Miniatura es requerido
-              </mat-error>
+        <div class="pr-1 col-7">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="URL Miniatura">
 
-            </mat-form-field>
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>URL Miniatura </mat-label>
+                <input
+                  matInput
+                  name="thumb"
+                  formControlName="thumb"
+                  placeholder="URL Miniatura"
+                >
+                <mat-error *ngIf="itemForm.controls['thumb'].hasError('required')">
+                  URL Miniatura es requerido
+                </mat-error>
+  
+              </mat-form-field>
+
+            </mat-tab>
+            <mat-tab label="Carga de Imagen">
+
+              <p><strong>Imagen apartado "Mas Info"</strong></p>
+                <img *ngIf="!preview.thumb_file" src="assets/img/img-preview.png" width="150px" class="" />
+                <img *ngIf="preview.thumb_file" [src]="preview.thumb_file" class="img-fluid" />
+          
+                <input type="file" class="btn btn-outline-primary" name="image" accept="image/*" placeholder="Subir Imagen" (change)="uploadImagen($event.target,'thumb_file')">
+                <!-- (change)="subirArchivo($event.target)" -->
+          
+                <p>**Dimensiones recomendadas para la miniatura del Capitulo:<strong> (Ancho: 500 - Alto: 350px) </strong>**
+                      </p>
+              
+
+            </mat-tab>
+          </mat-tab-group>
+            
           </div>
     
     </div>

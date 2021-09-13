@@ -3,6 +3,14 @@ import { FormBuilder, Validators, FormGroup, FormControl,FormArray } from '@angu
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { ResourceMovieM } from 'src/app/interfaces/interfaces';
 
+interface Preview {
+  [key: string] : any;
+}
+
+interface DataImages {
+  [key: string] : any;
+}
+
 @Component({
   selector: 'app-chapters-popup',
   templateUrl: './chapters-popup.component.html',
@@ -16,12 +24,29 @@ export class ChaptersPopupComponent implements OnInit {
   public itemForm!: FormGroup;
   public settings = {};
 
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+  public dataImages:DataImages ={
+    thumb_file:'',
+  }
+  
+  public preview:Preview ={
+    thumb_file:'',
+  }
+  /* Estos son objetos para la validacion de carga de imagenes y previsualizacion */
+
+  
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<ChaptersPopupComponent>,private fb: FormBuilder,) { }
 
   ngOnInit(): void {
     console.log('ngOnInitPopup', this.data.payload);
     this.series = this.data.payload
+
+    if (Object.keys(this.data.payload).length > 0) {
+
+      this.preview['thumb_file'] = (this.data.payload.hasOwnProperty('thumb')) ? this.data.payload.thumb :''
+    }
 
     this.settings = {
       singleSelection: true,
@@ -53,7 +78,8 @@ export class ChaptersPopupComponent implements OnInit {
       description: new FormControl('',[Validators.required] ),
       year: new FormControl(  '' ,[Validators.required]),
       score_average:new FormControl( '' ),
-      thumb:new FormControl( '' ,[Validators.required]),
+      thumb:new FormControl( '' ),
+      thumb_file: new FormControl(''),
       resource_file_url: new FormControl( '' ,[Validators.required]),
     })
   }
@@ -71,7 +97,29 @@ export class ChaptersPopupComponent implements OnInit {
     /* const length = (serie?.seasons?.length!) + 1 */
     this.chapterNumber = (seasonCurrent.chapters.length + 1).toString()
   }
+
+  uploadImagen(target: any,type:string){
+
+    const file:File = target.files[0]
+
+    if(!file){
+      return;
+    }
+
+    /* console.log(file); */
+
+    this.dataImages[`${type}`] = file;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file); 
+    reader.onloadend = () => this.preview[`${type}`] = reader.result 
+  }
   submit() {
+
+    Object.entries(this.dataImages).forEach((key) =>{
+      this.itemForm.value[`${key[0]}`] = key[1]
+    })
+    
     this.itemForm.value.chapter_number = this.chapterNumber
     /* console.log(this.itemForm?.value); */
      this.dialogRef.close(this.itemForm?.value)

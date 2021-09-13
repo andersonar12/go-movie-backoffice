@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'sweetalert2'
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies',
@@ -80,6 +80,7 @@ export class MoviesComponent implements OnInit {
       }),
         error => {
           console.log(error)
+
         },
         () => {
           /* this.filterPredicated() */
