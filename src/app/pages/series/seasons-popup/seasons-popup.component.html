@@ -22,7 +22,7 @@
             placeholder="Nombre"
           >
           <mat-error *ngIf="itemForm.controls['name'].hasError('required')">
-           Nombre
+           Nombre es requerido
           </mat-error>
           <!-- <mat-error *ngIf="itemForm.controls['name'].hasError('minlength')">
             El nombre debe tener un mínimo de 3 caracteres
@@ -56,21 +56,21 @@
             <input type="hidden" name="season_number" formControlName="season_number" placeholder="Numero de Temporada">
             <p>Agregaras la temporada: <strong>{{seasonPicked}}</strong></p>
         </div>
-        <div class="pr-1 col-4">
+        <div class="pr-1 col-8">
             <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Descripcion</mat-label>
-                <input matInput name="description" formControlName="description" placeholder="Descripcion">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput name="description" formControlName="description" placeholder="Descripción"></textarea>
                 <mat-error *ngIf="itemForm.controls['description'].hasError('required')">
-                    Descripcion
+                    Descripción es requerida
                 </mat-error>
             </mat-form-field>
         </div>
-        <div class="pr-1 col-4">
+        <!-- <div class="pr-1 col-4">
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Ranking</mat-label>
                 <input matInput type="number" name="score_average" formControlName="score_average" placeholder="Ranking">
             </mat-form-field>
-        </div>
+        </div> -->
 
     </div>
 
