@@ -49,7 +49,7 @@ export class SeasonsPopupComponent implements OnInit {
       name: new FormControl(  '',[Validators.required] ),
       description: new FormControl( '',[Validators.required] ),
       year: new FormControl(  '' ,[Validators.required]),
-      score_average:new FormControl( '' ,[Validators.required]),
+      score_average:new FormControl( '' ),
       chapters: new FormControl([])
     })
 
