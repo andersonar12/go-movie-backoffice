@@ -109,6 +109,51 @@ export class SliderHomeComponent implements OnInit {
       )
   }
 
+  changeOrder(event:any,element:any){
+    console.log(event.target.value);
+    const value = +event.target.value
+
+    if (value < 1) {
+      Swal.fire({
+        title: 'N° de Orden Invalido',
+        html: ` <strong>Debe ser mayor a 1</strong>` ,
+        icon: 'warning',
+      })
+
+      event.target.value = 0/* this.dataSource.data.length + 1 */
+      return
+    }
+
+    
+    this.presentLoader()
+
+   
+    this.resourcesService.updateOrderSliderHome(element.id, value).toPromise().then((res) => {
+      /* console.log(res) */
+      this.getAllData()
+      Swal.fire('Realizado', 'Orden actualizada', 'success')
+    }).catch((error) => {
+      /* console.log(error); */
+      Swal.close()
+
+      if (error.status == 422) {
+
+
+        Swal.fire({
+          title: 'N° de Orden Ya existe',
+          html: ` <strong>Coloque uno diferente</strong>` ,
+          icon: 'warning',
+        })
+      }
+    })
+
+    
+
+
+    
+
+  }
+
   deleteItem(item:any) {
     /* console.log(item); */
     Swal.fire({

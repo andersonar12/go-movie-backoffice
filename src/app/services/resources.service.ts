@@ -442,8 +442,6 @@ export class ResourcesService {
 
   }
 
-  /* eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnb19tb3ZpZSIsImV4cCI6MTYzMzUzMDc2MCwiaWF0IjoxNjMxMTExNTYwLCJpc3MiOiJnb19tb3ZpZSIsImp0aSI6IjAyNDA0ZDAwLTk5OTctNDFhYy04NjhmLWMzM2QwZGJjMzc2ZSIsIm5iZiI6MTYzMTExMTU1OSwic3ViIjoiNzIiLCJ0eXAiOiJhY2Nlc3MifQ.nrh6rrB0wG-ypwkeRd2uXGRVF5QBJqhTljLbAyyyXF8hDibsSCImbjIsaVnbD8HLijOpZEXttvaaC1Jrgxl1sw */
-
 
   updateSliderWithImage(id:string,content: any) {
 
@@ -474,6 +472,21 @@ export class ResourcesService {
     }
 
 
+
+    return this.http.put<any>(endpoint, formData, { headers, withCredentials: true })
+
+  }
+
+  updateOrderSliderHome(id:string,order: number) {
+
+    const token = localStorage.getItem('token')?.replace('"', '').replace('"', '')
+    const endpoint = `${this.apiUrl}/main_sliders/${id}`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+
+    let formData = new FormData();
+
+ 
+    formData.append('main_slider[order]', order.toString());
 
     return this.http.put<any>(endpoint, formData, { headers, withCredentials: true })
 

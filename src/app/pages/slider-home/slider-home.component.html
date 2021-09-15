@@ -20,7 +20,7 @@
 
                 <ng-container matColumnDef="order">
                   <th mat-header-cell *matHeaderCellDef><strong>Orden</strong>   </th>
-                  <td mat-cell *matCellDef="let element"> {{element.order}} </td>
+                  <td matTooltip="Presiona Enter para actualizar el orden"  mat-cell *matCellDef="let element"> <input min="0" (keyup.enter)="changeOrder($event,element)" type="number" name="" style="width: 50px;" [value]="element.order" id="">  </td>
                 </ng-container> 
 >
 
