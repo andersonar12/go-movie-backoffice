@@ -130,17 +130,22 @@ export class SeriesComponent implements OnInit {
           
           this.resourcesService.updateSerie(res,res._id).toPromise().then((res)=>{
             /* console.log(res) */
-            this.getAllData() 
-            Swal.fire('Realizado','Serie actualizada','success')
-          })
-          /* this.configService.updateFaenaByUser(res.contract_user, res.user_id, res.id_faena).subscribe(() => {
 
-          }, (error) => { console.log(error) }, (() => {
-            this.getAllData();
-            this.cd.markForCheck()
-            this.loader.close();
-            this.snack.open('Usuario Actualizado!', 'OK', { duration: 4000 })
-          })) */
+            this.resourcesService.getAllSlidersSeries().toPromise()
+            .then((sliders)=>{
+
+              const data = sliders.map((d:any)=>{ return d['_id']})
+
+              this.resourcesService.updateSerieSliders(data).toPromise()
+              .then(((resp)=>{
+                this.getAllData() 
+                Swal.fire('Realizado','Serie actualizada','success')
+              }))
+
+            })//para refrescar los landscape_poster en los slider
+            
+          })
+   
 
         }
          
