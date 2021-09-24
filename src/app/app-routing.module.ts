@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MoviesComponent } from './pages/movies/movies.component';
-import { SeriesComponent } from './pages/series/series.component';
-import { SliderHomeComponent } from './pages/slider-home/slider-home.component';
-import { SliderMoviesComponent } from './pages/slider-movies/slider-movies.component';
-import { SliderSeriesComponent } from './pages/slider-series/slider-series.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:'movies', component: MoviesComponent},
-  {path:'series', component: SeriesComponent},
-  {path:'slider-movies', component: SliderMoviesComponent},
-  {path:'slider-series', component: SliderSeriesComponent},
-  {path:'slider-home', component: SliderHomeComponent},
-  {path:'**', pathMatch: 'full', redirectTo:'movies'}
+  {path:'', pathMatch: 'full', redirectTo:'/auth/signin'},
+  {
+    path: 'auth',
+    loadChildren:  () => import('../app/auth/auth.module').then(m => m.AuthModule) ,
+  },
+  {
+    path: 'pages',
+    canActivate:[AuthGuard],
+    loadChildren:  () => import('../app/pages/pages.module').then(m => m.PagesModule) ,
+  }
 ];
 
 @NgModule({

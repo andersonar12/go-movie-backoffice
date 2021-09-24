@@ -1,7 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,16 +7,16 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(public authService:AuthService) { }
+  constructor() { }
 
   ngOnInit(){
 
-    this.authService.signIn({
+    /* this.authService.signIn({
       email: 'operario@mail.com' ,
       password: '12345678'
     }).toPromise().then(({user})=>{
       console.log(user)
       localStorage.setItem('token',user.token);
-    }).catch(error=>location.reload())
+    }).catch(error=>location.reload()) */
   }
 }

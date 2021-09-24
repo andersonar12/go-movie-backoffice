@@ -1,0 +1,86 @@
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #ddd700!important;
+}
+
+::ng-deep .mat-step-header.mat-warn .mat-step-icon-selected, .mat-step-header.mat-warn .mat-step-icon-state-done {
+    background-color: #ddd700!important;
+}
+//input outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent!important;
+    // opacity: 1!important;
+}
+
+//mat-input focused color
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: transparent!important;
+}
+
+// mat-input error outline color
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+    color: transparent!important;
+    opacity: 0.8!important;
+}
+
+// mat-input carent color
+::ng-deep .mat-input-element {
+    caret-color: rgba(221, 214, 0, 0)!important;
+}
+
+// mat-input error carent color
+::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+    caret-color: rgba(221, 214, 0, 0)!important;
+}
+
+// mat-label normal state style
+::ng-deep .mat-form-field-label {
+    color: rgba(0,0,0,.6)!important;
+    // color: $mainColor!important;
+}
+
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: transparent!important;
+}
+
+// mat-label error style
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: #ddd700!important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    background-color: #262626;
+    border-radius: 17px;
+}
+
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #333333 !important;
+  }
+
+::ng-deep .mat-checkbox-frame{
+border-color: rgb(49 51 49);
+}
+  
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #333333 !important;
+  }
+
+ul li{
+	padding: 3px 0px 3px 30px;
+	list-style: none;
+}
+
+
+:hover.visibility-password{
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field-label {
+    color: rgb(255 255 255) !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #ffffff !important;
+}

@@ -1,0 +1,69 @@
+<div class="d-flex align-items-center" style="background-color: #212529;height: 100%">
+
+  <div class="container-fluid ">
+
+    <div class="row d-flex justify-content-around ">
+      
+      <div class="col-5 d-flex align-items-center">
+        <img src="assets/img/gomovie-login.png" style="border-radius: 100px;" width="100%" alt="" srcset="">
+      </div>
+  
+      <div class="col-5">
+        <div style="height: 100%;" class="pt-5 ">
+          <!-- ion-justify-content-start  -->
+          <div class="pt-4 pb-5">
+
+            <div class="row">
+              <div class="col text-center text-white"><h3>Backoffice</h3></div>
+            </div>
+  
+            <div class="row d-flex justify-content-center mb-5">
+              <div class="col-6"><img src="assets/img/go-movie.jpg" style="border-radius: 20px;"  width="100%" alt="" srcset=""></div>
+              <div>
+  
+              <form [formGroup]="formGroup" class="mt-4 p-4" style="border-radius: 15px;background-color: #000; ">
+  
+                  <h2 class="text-white">Inicia Sesión </h2>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="text-gray-light">Correo de Usuario</mat-label>
+                    <input formControlName="email" matInput class="text-white" type="email" placeholder="" required>
+                  </mat-form-field>
+  
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="text-gray-light">Contraseña</mat-label>
+                    <input formControlName="password" matInput class="text-white" [type]="hide ? 'password' : 'text'"
+                      placeholder="" required>
+                    <mat-icon class="text-gray-light visibility-password" matSuffix matTooltip="Mostrar Contraseña"
+                      (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </mat-form-field>
+  
+                  <br>
+  
+                  <button type="button" [disabled]="formGroup.invalid" class="btn btn-warning w-100 pt-2 pb-2"
+                    (click)="signIn()"><strong>Iniciar Sesión</strong> </button>
+                  <!--  [(ngModel)]="checked"-->
+                  <mat-checkbox formControlName="remember_password" class="mt-3 mb-3 text-white">Recordar mi contraseña
+                  </mat-checkbox>
+  
+  
+  
+              </form>
+  
+              </div>
+
+  
+            </div>
+
+            <div class="row d-flex justify-content-center mt-5">
+              <div class="col text-center"><img src="assets/img/logo-wit.png" width="80px" alt="">
+              <p class="text-white">Copyright © 2021 WIT SPA, Los Conquistadores 2440, Chile, RM, Santiago</p>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+
+  </div>
