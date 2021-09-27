@@ -77,13 +77,26 @@ export class SigninComponent implements OnInit {
         window.location.href = window.location.origin + '/pages/movies' 
       }
 
-    }).catch((error)=>{
+    }).catch( async (error)=>{
+
+      const errorMsg = await error
       console.log(error);
-     
+
+      if (errorMsg.error.error == 'You are not allowed to access this route.') {
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario no permitido',
+          text: 'Ingresa los datos de un Administrador' })
+        
+      } else {
         Swal.fire({
           icon: 'warning',
           title: 'Datos Invalidos',
           text: 'Ingresa los datos correctos para acceder' })
+
+      }
+     
 
       
     })

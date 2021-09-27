@@ -17,7 +17,7 @@ export class AuthService {
 
     /* console.log(user) */
 
-    const endpoint = `${this.apiUrl}/users/sign_in`;
+    const endpoint = `${this.apiUrl}/admin/users/sign_in`;
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

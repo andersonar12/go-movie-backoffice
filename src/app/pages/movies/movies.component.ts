@@ -35,18 +35,6 @@ export class MoviesComponent implements OnInit {
   ngOnInit() {
     this.presentLoader()
     this.getAllData()
-
-    
-    window.addEventListener("beforeunload", function (e) {
-      var confirmationMessage = "\o/";
-      localStorage.setItem('Cierre de Ventana','closing the tab so do your small interval actions here like cookie removal etc but you cannot stop customer from closing');
-
-      setTimeout(() => {
-        
-        (e || window.event).returnValue = confirmationMessage; 
-        return confirmationMessage;                            
-      }, 3000);
-    });
     
   }
 
