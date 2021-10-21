@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'https://nuevo-gomovie-backend-dev.gestsol.io',
+  apiUrl:'https://nuevo-gomovie-backend-dev.witservices.io',
 };
 
 /*
