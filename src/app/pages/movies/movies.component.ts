@@ -87,7 +87,7 @@ export class MoviesComponent implements OnInit {
   openPopUp(data: any = {}, isNew?:any) {
     let title = isNew ? 'Añadir Recurso' : 'Actualizar Recurso';
     let dialogRef: MatDialogRef<any> = this.dialog.open(MoviesPopupComponent, {
-      width: '1150px',
+      width: '1200px',
       /* disableClose: true, */
       data: { title: title, payload: data, genders: this.genders}
     })

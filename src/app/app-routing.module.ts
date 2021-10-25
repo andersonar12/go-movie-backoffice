@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'pages',
     canActivate:[AuthGuard],
     loadChildren:  () => import('../app/pages/pages.module').then(m => m.PagesModule) ,
+  },
+  {
+    path: '**',
+    redirectTo: '/auth/signin'
   }
 ];
 
