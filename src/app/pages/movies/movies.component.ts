@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'sweetalert2'
-import { debounceTime, distinctUntilChanged, map, retry } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies',
@@ -113,17 +113,21 @@ export class MoviesComponent implements OnInit {
           console.log(res);
           this.resourcesService.updateMovie(res).toPromise().then((res)=>{
             /* console.log(res) */
-            this.getAllData() 
-            Swal.fire('Realizado','Pelicula actualizada','success')
-          })
-          /* this.configService.updateFaenaByUser(res.contract_user, res.user_id, res.id_faena).subscribe(() => {
+            
 
-          }, (error) => { console.log(error) }, (() => {
-            this.getAllData();
-            this.cd.markForCheck()
-            this.loader.close();
-            this.snack.open('Usuario Actualizado!', 'OK', { duration: 4000 })
-          })) */
+            this.resourcesService.getAllSlidersMovies().toPromise()
+            .then((movies)=>{
+
+              const data = movies.map((d:any)=>{ return d['_id']})
+
+              this.resourcesService.updateMovieSliders(data).toPromise()
+              .then(((resp)=>{
+                this.getAllData() 
+                Swal.fire('Realizado','Pelicula actualizada','success')
+              }))
+
+            })//para refrescar los landscape_poster en los slider
+          })
 
         }
          

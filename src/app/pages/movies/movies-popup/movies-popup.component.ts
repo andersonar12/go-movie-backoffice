@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup, FormControl, AbstractControl } from
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips'
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface Preview {
   [key: string] : any;
@@ -54,7 +54,7 @@ export class MoviesPopupComponent implements OnInit {
   ];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<MoviesPopupComponent>,private fb: FormBuilder,) { }
+  public dialogRef: MatDialogRef<MoviesPopupComponent>,private fb: FormBuilder,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     console.log('ngOnInitPopup', this.data.payload);
@@ -196,13 +196,67 @@ export class MoviesPopupComponent implements OnInit {
       return;
     }
 
-    /* console.log(file); */
+    //Si la imagen es png, jpg, jpeg... llamamos la funcion para convertir a .webp
+    if (file['type'] !== 'image/webp') {
+      this.convertImgToWebp(file,type)
+      return
+    }
+
+    /* console.log('Original Image',file); */
 
     this.dataImages[`${type}`] = file;
 
     let reader = new FileReader();
     reader.readAsDataURL(file); 
     reader.onloadend = () => this.preview[`${type}`] = reader.result 
+  }
+
+  convertImgToWebp(file:any,type:string ) {
+    if (!file) {
+      return;
+    }
+    console.log('Original Image',file);
+
+    let nameFile = file['name'].split('.')[0]
+  
+    // Load the data into an image
+    new Promise( (resolve, reject)=> {
+      let rawImage = new Image();
+  
+      rawImage.addEventListener("load",  ()=> {
+        resolve(rawImage);
+      });
+  
+      rawImage.src = URL.createObjectURL(file);
+    })
+    .then((rawImage:any)=> {
+      // Convert image to webp ObjectURL via a canvas blob
+      return new Promise((resolve, reject) => {
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext("2d");
+  
+        canvas.width = rawImage.width;
+        canvas.height = rawImage.height;
+        ctx?.drawImage(rawImage, 0, 0);
+
+        let blobFile:any
+  
+        canvas.toBlob((blob)=> {
+          blobFile = blob
+          resolve({imageURL:URL.createObjectURL(blob),blobFile});
+        }, "image/webp");
+
+      });
+    })
+    .then((resp:any)=> {
+
+      let newFile = new File([resp.blobFile], nameFile, { lastModified: new Date().getTime(), type: "image/webp"})
+          
+      this.preview[`${type}`] = this.sanitizer.bypassSecurityTrustUrl(resp.imageURL) 
+      console.log('File Webp', newFile);
+
+      this.dataImages[`${type}`] = newFile;
+    })
   }
 
   submit() {
