@@ -94,6 +94,18 @@ export class AuthService {
   return this.http.post<any>(endpoint,body, { headers: headers, withCredentials: true })
   }
 
+  logOut (){
+
+    const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
+    const endpoint = `${this.apiUrl}/log_out`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    })
+
+    return this.http.post<any>(endpoint, null,{ headers: headers})
+    
+  }
+
   updateUser(data:any,id:any) {
     const token = localStorage.getItem('token')?.replace('"','').replace('"','') 
     const endpoint = `${ this.apiUrl }/users/${id}`;

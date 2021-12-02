@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'pages',
@@ -7,11 +8,14 @@ import { Router } from '@angular/router';
 })
 export class PagesComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private authService:AuthService){}
 
   signOut() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    this.router.navigate(['/auth/signin']) 
+
+    this.authService.logOut().toPromise().then(()=>{
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      this.router.navigate(['/auth/signin']) 
+    })
   }
 }
